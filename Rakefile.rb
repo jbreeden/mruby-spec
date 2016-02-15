@@ -119,7 +119,7 @@ task :readme do
       f = File.open(filename, 'r')
       f.each_line do |line|
         if match = line.match(/(?<file>\d+) file, (?<examples>\d+) examples, (?<expectations>\d+) expectations, (?<failure>\d+) failure, (?<errors>\d+) errors, (?<tagged>\d+) tagged/)
-          readme.puts "[#{filename.sub('results', '')}](/jbreeden/mruby-spec/#{f})|#{match[:examples]}|#{match[:expectations]}|#{match[:failure]}|#{match[:errors]}"
+          readme.puts "[#{filename.sub('results', '')}](https://rawgit.com/jbreeden/mruby-spec/master/#{f})|#{match[:examples]}|#{match[:expectations]}|#{match[:failure]}|#{match[:errors]}"
         end
       end
     end
