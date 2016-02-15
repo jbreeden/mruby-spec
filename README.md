@@ -1,53 +1,17 @@
-|File|Examples|Expectations|Failures|Errors|
-|----|--------|------------|--------|------|
-[/core/array/clear_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/clear_spec.html)|7|6|1|3
-[/core/array/comparison_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/comparison_spec.html)|10|41|1|0
-[/core/array/hash_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/hash_spec.html)|8|21|1|4
-[/core/array/intersection_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/intersection_spec.html)|10|15|1|3
-[/core/array/minus_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/minus_spec.html)|11|25|1|5
-[/core/array/new_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/new_spec.html)|10|11|1|5
-[/core/array/partition_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/partition_spec.html)|4|14|1|0
-[/core/array/to_a_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/to_a_spec.html)|3|6|1|0
-[/core/array/try_convert_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/array/try_convert_spec.html)|8|13|1|0
-[/core/class/inherited_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/class/inherited_spec.html)|8|10|1|3
-[/core/dir/inspect_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/dir/inspect_spec.html)|3|3|1|3
-[/core/enumerable/count_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/count_spec.html)|7|7|1|0
-[/core/enumerable/drop_while_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/drop_while_spec.html)|9|11|1|2
-[/core/enumerable/find_all_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/find_all_spec.html)|6|6|1|2
-[/core/enumerable/find_index_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/find_index_spec.html)|13|25|1|2
-[/core/enumerable/grep_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/grep_spec.html)|5|5|1|2
-[/core/enumerable/group_by_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/group_by_spec.html)|9|7|1|4
-[/core/enumerable/select_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/select_spec.html)|6|6|1|2
-[/core/enumerable/zip_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/enumerable/zip_spec.html)|6|4|1|3
-[/core/fixnum/case_compare_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/fixnum/case_compare_spec.html)|2|10|1|0
-[/core/fixnum/div_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/fixnum/div_spec.html)|6|11|1|2
-[/core/fixnum/equal_value_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/fixnum/equal_value_spec.html)|2|10|1|0
-[/core/float/abs_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/float/abs_spec.html)|4|6|1|0
-[/core/float/comparison_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/float/comparison_spec.html)|7|5|1|4
-[/core/hash/element_set_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/element_set_spec.html)|8|11|1|2
-[/core/hash/hash_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/hash_spec.html)|5|2|1|3
-[/core/hash/inspect_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/inspect_spec.html)|5|5|1|2
-[/core/hash/invert_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/invert_spec.html)|4|5|1|0
-[/core/hash/merge_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/merge_spec.html)|15|25|1|5
-[/core/hash/store_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/store_spec.html)|8|11|1|2
-[/core/hash/to_h_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/to_h_spec.html)|4|6|1|0
-[/core/hash/to_s_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/to_s_spec.html)|5|5|1|2
-[/core/hash/try_convert_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/hash/try_convert_spec.html)|8|13|1|0
-[/core/numeric/quo_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/numeric/quo_spec.html)|5|5|1|4
-[/core/numeric/uminus_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/numeric/uminus_spec.html)|4|10|1|2
-[/core/proc/hash_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/proc/hash_spec.html)|4|5|1|0
-[/core/random/new_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/random/new_spec.html)|8|3|1|6
-[/core/range/each_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/range/each_spec.html)|7|15|1|2
-[/core/range/first_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/range/first_spec.html)|11|17|1|0
-[/core/string/chars_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/string/chars_spec.html)|4|4|1|0
-[/core/struct/inspect_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/struct/inspect_spec.html)|2|2|1|0
-[/core/symbol/length_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/symbol/length_spec.html)|5|5|1|0
-[/core/symbol/size_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/symbol/size_spec.html)|5|5|1|0
-[/core/symbol/to_proc_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/symbol/to_proc_spec.html)|5|6|1|0
-[/core/time/hash_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/core/time/hash_spec.html)|2|2|1|0
-[/language/alias_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/language/alias_spec.html)|16|21|1|3
-[/language/for_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/language/for_spec.html)|16|18|1|3
-[/language/match_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/language/match_spec.html)|6|9|1|0
-[/language/redo_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/language/redo_spec.html)|5|7|1|0
-[/language/rescue_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/language/rescue_spec.html)|10|15|1|0
-[/language/symbol_spec.html](https://rawgit.com/jbreeden/mruby-spec/master/results/language/symbol_spec.html)|12|45|1|0
+MRUBY SPEC
+==========
+
+This project provides a Rakefile for running selected tests from RubySpec against
+MRuby.
+
+Usage
+-------
+
+1. Clone this repo `git clone https://github.com/jbreeden/mruby-spec`
+2. `rake init` to checkout `ruby/spec` and a `ruby/mspec` clone customized for MRuby.
+3. `rake` to run the selected tests.
+
+Latest Results
+--------------
+
+[Can be found here.](http://jbreeden.github.io/mruby-spec)

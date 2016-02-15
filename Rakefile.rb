@@ -3,7 +3,7 @@ require 'timeout'
 def run_test_file(f)
   raise "File path should start with rubyspec/..." unless f.start_with?('rubyspec/')
   
-  results = f.sub('rubyspec', 'results').sub('.rb', '.html')
+  results = f.sub('rubyspec', 'gh-pages/results').sub('.rb', '.html')
   results_dir = File.dirname(results)
   mkdir_p(results_dir) unless Dir.exist?(results_dir)
   
@@ -27,6 +27,14 @@ task :init do
     sh "git clone https://github.com/jbreeden/mspec mspec"
     cd "mspec" do
       sh "git checkout mruby"
+    end
+  end
+  
+  unless Dir.exists?('gh-pages')
+    mkdir 'gh-pages'
+    cd 'gh-pages' do
+      sh "git clone .. ."
+      sh "git checkout gh-pages"
     end
   end
 end
@@ -106,8 +114,8 @@ task :clean do
 end
 
 desc "Write the index file"
-task :readme do
-  File.open('README.md', 'w') do |readme|
+task :index do
+  File.open('gh-pages/index.md', 'w') do |readme|
     header = "|File|Examples|Expectations|Failures|Errors|"
     
     cols = header.split("|").select { |c| c && !c.empty? }.length
@@ -119,11 +127,11 @@ task :readme do
       f = File.open(filename, 'r')
       f.each_line do |line|
         if match = line.match(/(?<file>\d+) file, (?<examples>\d+) examples, (?<expectations>\d+) expectations, (?<failure>\d+) failure, (?<errors>\d+) errors, (?<tagged>\d+) tagged/)
-          readme.puts "[#{filename.sub('results', '')}](https://rawgit.com/jbreeden/mruby-spec/master/#{filename})|#{match[:examples]}|#{match[:expectations]}|#{match[:failure]}|#{match[:errors]}"
+          readme.puts "[#{filename.sub('results', '')}](https://jbreeden.github.io/results/#{filename})|#{match[:examples]}|#{match[:expectations]}|#{match[:failure]}|#{match[:errors]}|"
         end
       end
     end
   end
 end
 
-task :default => [:clean, :language, :core, :readme]
+task :default => [:clean, :language, :core, :index]
