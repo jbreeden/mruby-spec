@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Array#combination</p>
+<ul>
+<li class="fail">- returns an enumerator when no block is provided (<a href="#details-1">ERROR - 1</a>)</li>
+<li class="fail">- returns self when a block is given (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- yields nothing for out of bounds length and return self (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="fail">- yields the expected combinations (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="fail">- yields nothing if the argument is out of bounds (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- yields a copy of self if the argument is the size of the receiver (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- yields [] when length is 0 (<a href="#details-7">ERROR - 7</a>)</li>
+<li class="fail">- yields a partition consisting of only singletons (<a href="#details-8">ERROR - 8</a>)</li>
+<li class="fail">- generates from a defensive copy, ignoring mutations (<a href="#details-9">ERROR - 9</a>)</li>
+</ul>
+</div>
+<div><p>Array#combination when no block is given returned Enumerator size</p>
+<ul>
+<li class="fail">- returns 0 when the number of combinations is < 0 (<a href="#details-10">ERROR - 10</a>)</li>
+<li class="fail">- returns the binomial coeficient between the array size the number of combinations (<a href="#details-11">ERROR - 11</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Array#combination returns an enumerator when no block is provided ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Array#combination returns self when a block is given ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Array#combination yields nothing for out of bounds length and return self ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-4"><p>Array#combination yields the expected combinations ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-5"><p>Array#combination yields nothing if the argument is out of bounds ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-6"><p>Array#combination yields a copy of self if the argument is the size of the receiver ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-7"><p>Array#combination yields [] when length is 0 ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-8"><p>Array#combination yields a partition consisting of only singletons ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-9"><p>Array#combination generates from a defensive copy, ignoring mutations ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-10"><p>Array#combination when no block is given returned Enumerator size returns 0 when the number of combinations is &lt; 0 ERROR</p>
+<p>NoMethodError: undefined method 'combination' for [1, 2, 3, 4]</p>
+<pre>

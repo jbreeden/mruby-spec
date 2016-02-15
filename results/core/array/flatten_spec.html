@@ -1,0 +1,634 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Array#flatten</p>
+<ul>
+<li class="pass">- returns a one-dimensional flattening recursively</li>
+<li class="pass">- takes an optional argument that determines the level of recursion</li>
+<li class="pass">- returns dup when the level of recursion is 0</li>
+<li class="fail">- ignores negative levels (<a href="#details-1">FAILED - 1</a>)</li>
+<li class="fail">- tries to convert passed Objects to Integers using #to_int (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- tries to convert passed Objects to Integers using #to_int (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="fail">- raises a TypeError when the passed Object can't be converted to an Integer (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="fail">- does not call flatten on elements (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- does not call flatten on elements (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- raises an ArgumentError on recursive arrays (<a href="#details-7">ERROR - 7</a>)</li>
+<li class="fail">- flattens any element which responds to #to_ary, using the return value of said method (<a href="#details-8">FAILED - 8</a>)</li>
+<li class="fail">- flattens any element which responds to #to_ary, using the return value of said method (<a href="#details-9">ERROR - 9</a>)</li>
+<li class="fail">- returns subclass instance for Array subclasses (<a href="#details-10">FAILED - 10</a>)</li>
+<li class="pass">- is not destructive</li>
+<li class="fail">- returns a tainted array if self is tainted (<a href="#details-11">ERROR - 11</a>)</li>
+<li class="fail">- returns an untrusted array if self is untrusted (<a href="#details-12">ERROR - 12</a>)</li>
+<li class="fail">- performs respond_to? and method_missing-aware checks when coercing elements to array (<a href="#details-13">ERROR - 13</a>)</li>
+</ul>
+</div>
+<div><p>Array#flatten with a non-Array object in the Array</p>
+<ul>
+<li class="pass">- does not call #to_ary if the method is not defined</li>
+<li class="fail">- does not raise an exception if #to_ary returns nil (<a href="#details-14">ERROR - 14</a>)</li>
+<li class="fail">- raises a TypeError if #to_ary does not return an Array (<a href="#details-15">FAILED - 15</a>)</li>
+<li class="fail">- raises a TypeError if #to_ary does not return an Array (<a href="#details-16">ERROR - 16</a>)</li>
+<li class="fail">- does not call #to_ary if not defined when #respond_to_missing? returns false (<a href="#details-17">FAILED - 17</a>)</li>
+<li class="fail">- calls #to_ary if not defined when #respond_to_missing? returns true (<a href="#details-18">FAILED - 18</a>)</li>
+<li class="fail">- calls #method_missing if defined (<a href="#details-19">FAILED - 19</a>)</li>
+<li class="fail">- calls #method_missing if defined (<a href="#details-20">ERROR - 20</a>)</li>
+</ul>
+</div>
+<div><p>Array#flatten!</p>
+<ul>
+<li class="pass">- modifies array to produce a one-dimensional flattening recursively</li>
+<li class="pass">- returns self if made some modifications</li>
+<li class="pass">- returns nil if no modifications took place</li>
+<li class="pass">- should not check modification by size</li>
+<li class="pass">- takes an optional argument that determines the level of recursion</li>
+<li class="pass">- returns nil when the level of recursion is 0</li>
+<li class="fail">- treats negative levels as no arguments (<a href="#details-21">FAILED - 21</a>)</li>
+<li class="fail">- tries to convert passed Objects to Integers using #to_int (<a href="#details-22">ERROR - 22</a>)</li>
+<li class="fail">- tries to convert passed Objects to Integers using #to_int (<a href="#details-23">ERROR - 23</a>)</li>
+<li class="fail">- raises a TypeError when the passed Object can't be converted to an Integer (<a href="#details-24">ERROR - 24</a>)</li>
+<li class="pass">- does not call flatten! on elements</li>
+<li class="fail">- raises an ArgumentError on recursive arrays (<a href="#details-25">ERROR - 25</a>)</li>
+<li class="fail">- flattens any elements which responds to #to_ary, using the return value of said method (<a href="#details-26">FAILED - 26</a>)</li>
+<li class="fail">- flattens any elements which responds to #to_ary, using the return value of said method (<a href="#details-27">ERROR - 27</a>)</li>
+<li class="fail">- raises a RuntimeError on frozen arrays when the array is modified (<a href="#details-28">ERROR - 28</a>)</li>
+<li class="fail">- raises a RuntimeError on frozen arrays when the array would not be modified (<a href="#details-29">ERROR - 29</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Array#flatten ignores negative levels FAILED</p>
+<p>Expected [1, 2, [3, 4, [5, 6]]] to equal [1, 2, 3, 4, 5, 6]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Array#flatten tries to convert passed Objects to Integers using #to_int ERROR</p>
+<p>NoMethodError: undefined method '&gt;' for #&lt;MockObject:0x7fca4c190a90&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>An exception occurred during: Mock.verify_count
+Array#flatten tries to convert passed Objects to Integers using #to_int ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-4"><p>Array#flatten raises a TypeError when the passed Object can't be converted to an Integer ERROR</p>
+<p>NoMethodError: undefined method '&gt;' for #&lt;MockObject:0x7fca4c076e80 @name="Not converted", @null=nil&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/proxy.rb:8:in MockObject.method_missing
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:33:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:33:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:155:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-5"><p>Array#flatten does not call flatten on elements ERROR</p>
+<p>TypeError: expected Array</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-6"><p>An exception occurred during: Mock.verify_count
+Array#flatten does not call flatten on elements ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 1 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-7"><p>Array#flatten raises an ArgumentError on recursive arrays ERROR</p>
+<p>SystemStackError: stack level too deep. (limit=(0x40000 - 128))</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:49:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:49:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:155:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-8"><p>Array#flatten flattens any element which responds to #to_ary, using the return value of said method FAILED</p>
+<p>Expected [1, 2, #&lt;MockObject:0x7fca4cb540c0 @name="[3,4]", @null=nil&gt;, 5]
+to equal [1, 2, 3, 4, 5]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-9"><p>An exception occurred during: Mock.verify_count
+Array#flatten flattens any element which responds to #to_ary, using the return value of said method ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-10"><p>Array#flatten returns subclass instance for Array subclasses FAILED</p>
+<p>Expected [] (Array) to be an instance of ArraySpecs::MyArray</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-11"><p>Array#flatten returns a tainted array if self is tainted ERROR</p>
+<p>NoMethodError: undefined method 'taint' for []</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-12"><p>Array#flatten returns an untrusted array if self is untrusted ERROR</p>
+<p>NoMethodError: undefined method 'untrust' for []</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-13"><p>Array#flatten performs respond_to? and method_missing-aware checks when coercing elements to array ERROR</p>
+<p>NoMethodError: undefined method 'is_a?' for #&lt;BasicObject:0x7fca4cb5da10&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-14"><p>An exception occurred during: Mock.verify_count
+Array#flatten with a non-Array object in the Array does not raise an exception if #to_ary returns nil ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-15"><p>Array#flatten with a non-Array object in the Array raises a TypeError if #to_ary does not return an Array FAILED</p>
+<p>Expected TypeError but no exception was raised (#@result was returned)</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-16"><p>An exception occurred during: Mock.verify_count
+Array#flatten with a non-Array object in the Array raises a TypeError if #to_ary does not return an Array ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-17"><p>Array#flatten with a non-Array object in the Array does not call #to_ary if not defined when #respond_to_missing? returns false FAILED</p>
+<p>Expected [] to equal [[:to_ary, false]]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-18"><p>Array#flatten with a non-Array object in the Array calls #to_ary if not defined when #respond_to_missing? returns true FAILED</p>
+<p>Expected NoMethodError but no exception was raised (#@result was returned)</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-19"><p>Array#flatten with a non-Array object in the Array calls #method_missing if defined FAILED</p>
+<p>Expected [#&lt;MockObject:0x7fca4cb78ea0 @name="Array#flatten", @null=nil&gt;]
+to equal [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-20"><p>An exception occurred during: Mock.verify_count
+Array#flatten with a non-Array object in the Array calls #method_missing if defined ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-21"><p>Array#flatten! treats negative levels as no arguments FAILED</p>
+<p>Expected nil to equal [1, 2, 3, 4, 5, 6]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-22"><p>Array#flatten! tries to convert passed Objects to Integers using #to_int ERROR</p>
+<p>NoMethodError: undefined method '&gt;' for #&lt;MockObject:0x7fca4cb8ffb0&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-23"><p>An exception occurred during: Mock.verify_count
+Array#flatten! tries to convert passed Objects to Integers using #to_int ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-24"><p>Array#flatten! raises a TypeError when the passed Object can't be converted to an Integer ERROR</p>
+<p>NoMethodError: undefined method '&gt;' for #&lt;MockObject:0x7fca4cb8b2d0 @name="Not converted", @null=nil&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/proxy.rb:8:in MockObject.method_missing
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:206:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:206:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:261:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-25"><p>Array#flatten! raises an ArgumentError on recursive arrays ERROR</p>
+<p>SystemStackError: stack level too deep. (limit=(0x40000 - 128))</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:222:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:222:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:261:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-26"><p>Array#flatten! flattens any elements which responds to #to_ary, using the return value of said method FAILED</p>
+<p>Expected nil to equal [1, 2, 3, 4, 5]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-27"><p>An exception occurred during: Mock.verify_count
+Array#flatten! flattens any elements which responds to #to_ary, using the return value of said method ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-28"><p>Array#flatten! raises a RuntimeError on frozen arrays when the array is modified ERROR</p>
+<p>NoMethodError: undefined method 'freeze' for [1, 2, []]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-29"><p>Array#flatten! raises a RuntimeError on frozen arrays when the array would not be modified ERROR</p>
+<p>NoMethodError: undefined method 'freeze' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/core/array/fixtures/classes.rb:37:in ArraySpecs#frozen_array
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:258:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:258:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/array/flatten_spec.rb:261:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+</ol>
+<p>Finished in 0.072299 seconds</p>
+<p class="fail">1 file, 34 examples, 44 expectations, 9 failures, 20 errors, 0 tagged</p>
+</body>
+</html>
+mruby 1.2.0 (2015-11-17) 
+00003 NODE_SCOPE:
+00003   NODE_BEGIN:
+00003     NODE_CALL:
+00003       NODE_GVAR $:
+00003       method='unshift' (162)
+00003       args:
+00003         NODE_CALL:
+00003           NODE_CONST File
+00003           method='expand_path' (1532)
+00003           args:
+00003             NODE_STR "../../lib" len 9
+00003             NODE_STR "/Users/jared/projects/mruby-spec/mspec/bin/mspec-run" len 52
+00005     NODE_CALL:
+00005       NODE_SELF
+00005       method='require' (1726)
+00005       args:
+00005         NODE_STR "mspec/commands/mspec-run" len 24
+00006     NODE_CALL:
+00006       NODE_SELF
+00006       method='require' (1726)
+00006       args:
+00006         NODE_STR "mspec" len 5
+00008     NODE_CALL:
+00008       NODE_CONST MSpecRun
+00008       method='main' (2121)
+irep 0x7fca4bc5a290 nregs=6 nlocals=1 pools=4 syms=7 reps=0
+file: /Users/jared/projects/mruby-spec/mspec/bin/mspec-run
+    3 000 OP_GETGLOBAL	R1	:$:
+    3 001 OP_GETCONST	R2	:File
+    3 002 OP_STRING	R3	L(0)	; "../../lib"
+    3 003 OP_STRING	R4	L(1)	; "/Users/jared/projects/mruby-spec/mspec/bin/mspec-run"
+    3 004 OP_SEND	R2	:expand_path	2
+    3 005 OP_SEND	R1	:unshift	1
+    5 006 OP_LOADSELF	R1		
+    5 007 OP_STRING	R2	L(2)	; "mspec/commands/mspec-run"
+    5 008 OP_SEND	R1	:require	1
+    6 009 OP_LOADSELF	R1		
+    6 010 OP_STRING	R2	L(3)	; "mspec"
+    6 011 OP_SEND	R1	:require	1
+    8 012 OP_GETCONST	R1	:MSpecRun
+    8 013 OP_SEND	R1	:main	0
+    8 014 OP_STOP
+

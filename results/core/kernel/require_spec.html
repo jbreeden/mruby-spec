@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<li class="fail">-  (<a href="#details-1">ERROR - 1</a>)</li>
+<div><p>Kernel#require</p>
+<ul>
+<li class="fail">- is a private method (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- stores the missing path in a LoadError object (<a href="#details-3">ERROR - 3</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require (path resolution)</p>
+<ul>
+<li class="pass">- does not load a bare filename unless the current working directory is in $LOAD_PATH</li>
+<li class="pass">- does not load a relative path unless the current working directory is in $LOAD_PATH</li>
+<li class="fail">- loads a file that recursively requires itself (<a href="#details-4">ERROR - 4</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require (non-extensioned path)</p>
+<ul>
+<li class="pass">- loads a .rb extensioned file when a C-extension file exists on an earlier load path</li>
+</ul>
+</div>
+<div><p>Kernel#require (file extensions)</p>
+<ul>
+<li class="pass">- loads a .rb extensioned file when passed a non-extensioned path</li>
+<li class="pass">- loads a .rb extensioned file when a C-extension file of the same name is loaded</li>
+<li class="pass">- does not load a C-extension file if a .rb extensioned file is already loaded</li>
+<li class="pass">- loads a .rb extensioned file when passed a non-.rb extensioned path</li>
+<li class="pass">- loads a .rb extensioned file when a complex-extensioned C-extension file of the same name is loaded</li>
+<li class="pass">- does not load a C-extension file if a complex-extensioned .rb file is already loaded</li>
+</ul>
+</div>
+<div><p>Kernel#require ($LOAD_FEATURES)</p>
+<ul>
+<li class="fail">- stores an absolute path (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- does not store the path if the load fails (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- does not load an absolute path that is already stored (<a href="#details-7">ERROR - 7</a>)</li>
+<li class="fail">- does not load a ./ relative path that is already stored (<a href="#details-8">ERROR - 8</a>)</li>
+<li class="fail">- does not load a ../ relative path that is already stored (<a href="#details-9">ERROR - 9</a>)</li>
+<li class="fail">- does not load a non-canonical path that is already stored (<a href="#details-10">ERROR - 10</a>)</li>
+<li class="fail">- respects being replaced with a new array (<a href="#details-11">ERROR - 11</a>)</li>
+<li class="fail">- does not load twice the same file with and without extension (<a href="#details-12">ERROR - 12</a>)</li>
+<li class="fail">- stores ../ relative paths as absolute paths (<a href="#details-13">ERROR - 13</a>)</li>
+<li class="fail">- stores ./ relative paths as absolute paths (<a href="#details-14">ERROR - 14</a>)</li>
+<li class="fail">- collapses duplicate path separators (<a href="#details-15">ERROR - 15</a>)</li>
+<li class="fail">- canonicalizes non-unique absolute paths (<a href="#details-16">ERROR - 16</a>)</li>
+<li class="pass">- adds the suffix of the resolved filename</li>
+<li class="fail">- does not load a non-canonical path for a file already loaded (<a href="#details-17">ERROR - 17</a>)</li>
+<li class="fail">- does not load a ./ relative path for a file already loaded (<a href="#details-18">ERROR - 18</a>)</li>
+<li class="fail">- does not load a ../ relative path for a file already loaded (<a href="#details-19">ERROR - 19</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require ($LOAD_FEATURES) when a non-extensioned file is in $LOADED_FEATURES</p>
+<ul>
+<li class="pass">- loads a .rb extensioned file when a non extensioned file is in $LOADED_FEATURES</li>
+<li class="pass">- loads a .rb extensioned file from a subdirectory</li>
+<li class="fail">- returns false if the file is not found (<a href="#details-20">ERROR - 20</a>)</li>
+<li class="fail">- returns false when passed a path and the file is not found (<a href="#details-21">ERROR - 21</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require (shell expansion)</p>
+<ul>
+<li class="fail">- performs tilde expansion on a .rb file before storing paths in $LOADED_FEATURES (<a href="#details-22">ERROR - 22</a>)</li>
+<li class="fail">- performs tilde expansion on a non-extensioned file before storing paths in $LOADED_FEATURES (<a href="#details-23">ERROR - 23</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require (concurrently)</p>
+<ul>
+<li class="fail">- blocks a second thread from returning while the 1st is still requiring (<a href="#details-24">ERROR - 24</a>)</li>
+<li class="fail">- blocks based on the path (<a href="#details-25">ERROR - 25</a>)</li>
+<li class="fail">- allows a 2nd require if the 1st raised an exception (<a href="#details-26">ERROR - 26</a>)</li>
+<li class="fail">- blocks a 3rd require if the 1st raises an exception and the 2nd is still running (<a href="#details-27">ERROR - 27</a>)</li>
+</ul>
+</div>
+<div><p>Kernel.require</p>
+<ul>
+<li class="fail">- stores the missing path in a LoadError object (<a href="#details-28">ERROR - 28</a>)</li>
+</ul>
+</div>
+<div><p>Kernel.require (path resolution)</p>
+<ul>
+<li class="pass">- does not load a bare filename unless the current working directory is in $LOAD_PATH</li>
+<li class="pass">- does not load a relative path unless the current working directory is in $LOAD_PATH</li>
+<li class="fail">- loads a file that recursively requires itself (<a href="#details-29">ERROR - 29</a>)</li>
+</ul>
+</div>
+<div><p>Kernel.require (non-extensioned path)</p>
+<ul>
+<li class="pass">- loads a .rb extensioned file when a C-extension file exists on an earlier load path</li>
+</ul>
+</div>
+<div><p>Kernel.require (file extensions)</p>
+<ul>
+<li class="pass">- loads a .rb extensioned file when passed a non-extensioned path</li>
+<li class="pass">- loads a .rb extensioned file when a C-extension file of the same name is loaded</li>
+<li class="pass">- does not load a C-extension file if a .rb extensioned file is already loaded</li>
+<li class="pass">- loads a .rb extensioned file when passed a non-.rb extensioned path</li>
+<li class="pass">- loads a .rb extensioned file when a complex-extensioned C-extension file of the same name is loaded</li>
+<li class="pass">- does not load a C-extension file if a complex-extensioned .rb file is already loaded</li>
+</ul>
+</div>
+<div><p>Kernel.require ($LOAD_FEATURES)</p>
+<ul>
+<li class="fail">- stores an absolute path (<a href="#details-30">ERROR - 30</a>)</li>
+<li class="fail">- does not store the path if the load fails (<a href="#details-31">ERROR - 31</a>)</li>
+<li class="fail">- does not load an absolute path that is already stored (<a href="#details-32">ERROR - 32</a>)</li>
+<li class="fail">- does not load a ./ relative path that is already stored (<a href="#details-33">ERROR - 33</a>)</li>
+<li class="fail">- does not load a ../ relative path that is already stored (<a href="#details-34">ERROR - 34</a>)</li>
+<li class="fail">- does not load a non-canonical path that is already stored (<a href="#details-35">ERROR - 35</a>)</li>
+<li class="fail">- respects being replaced with a new array (<a href="#details-36">ERROR - 36</a>)</li>
+<li class="fail">- does not load twice the same file with and without extension (<a href="#details-37">ERROR - 37</a>)</li>
+<li class="fail">- stores ../ relative paths as absolute paths (<a href="#details-38">ERROR - 38</a>)</li>
+<li class="fail">- stores ./ relative paths as absolute paths (<a href="#details-39">ERROR - 39</a>)</li>
+<li class="fail">- collapses duplicate path separators (<a href="#details-40">ERROR - 40</a>)</li>
+<li class="fail">- canonicalizes non-unique absolute paths (<a href="#details-41">ERROR - 41</a>)</li>
+<li class="pass">- adds the suffix of the resolved filename</li>
+<li class="fail">- does not load a non-canonical path for a file already loaded (<a href="#details-42">ERROR - 42</a>)</li>
+<li class="fail">- does not load a ./ relative path for a file already loaded (<a href="#details-43">ERROR - 43</a>)</li>
+<li class="fail">- does not load a ../ relative path for a file already loaded (<a href="#details-44">ERROR - 44</a>)</li>
+</ul>
+</div>
+<div><p>Kernel.require ($LOAD_FEATURES) when a non-extensioned file is in $LOADED_FEATURES</p>
+<ul>
+<li class="pass">- loads a .rb extensioned file when a non extensioned file is in $LOADED_FEATURES</li>
+<li class="pass">- loads a .rb extensioned file from a subdirectory</li>
+<li class="fail">- returns false if the file is not found (<a href="#details-45">ERROR - 45</a>)</li>
+<li class="fail">- returns false when passed a path and the file is not found (<a href="#details-46">ERROR - 46</a>)</li>
+</ul>
+</div>
+<div><p>Kernel.require (shell expansion)</p>
+<ul>
+<li class="fail">- performs tilde expansion on a .rb file before storing paths in $LOADED_FEATURES (<a href="#details-47">ERROR - 47</a>)</li>
+<li class="fail">- performs tilde expansion on a non-extensioned file before storing paths in $LOADED_FEATURES (<a href="#details-48">ERROR - 48</a>)</li>
+</ul>
+</div>
+<div><p>Kernel.require (concurrently)</p>
+<ul>
+<li class="fail">- blocks a second thread from returning while the 1st is still requiring (<a href="#details-49">ERROR - 49</a>)</li>
+<li class="fail">- blocks based on the path (<a href="#details-50">ERROR - 50</a>)</li>
+<li class="fail">- allows a 2nd require if the 1st raised an exception (<a href="#details-51">ERROR - 51</a>)</li>
+<li class="fail">- blocks a 3rd require if the 1st raises an exception and the 2nd is still running (<a href="#details-52">ERROR - 52</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>An exception occurred during: (path resolution) ERROR</p>
+<p>RuntimeError: RbConfig[host_os : String]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Kernel#require is a private method ERROR</p>
+<p>NoMethodError: undefined method 'private_instance_methods' for Kernel</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Kernel#require stores the missing path in a LoadError object ERROR</p>
+<p>TypeError: Expected String</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/fixtures/code_loading.rb:7:in CodeLoadingSpecs::Method.require
+/Users/jared/projects/mruby-spec/rubyspec/core/kernel/shared/require.rb:653:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/kernel/shared/require.rb:654:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/kernel/require_spec.rb:22:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-4"><p>Kernel#require (path resolution) loads a file that recursively requires itself ERROR</p>
+<p>LoadError: Cannot load such file -- /Users/jared/projects/mruby-spec/rubyspec/fixtures/code/recursive_require_fixture.rb</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-5"><p>Kernel#require ($LOAD_FEATURES) stores an absolute path ERROR</p>
+<p>LoadError: Cannot load such file -- /Users/jared/projects/mruby-spec/rubyspec/fixtures/code/load_fixture.rb</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-6"><p>Kernel#require ($LOAD_FEATURES) does not store the path if the load fails ERROR</p>
+<p>LoadError: Cannot load such file -- raise_fixture.rb</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/fixtures/code_loading.rb:7:in CodeLoadingSpecs::Method.require
+/Users/jared/projects/mruby-spec/rubyspec/core/kernel/shared/require.rb:307:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/kernel/shared/require.rb:307:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/kernel/require_spec.rb:22:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-7"><p>Kernel#require ($LOAD_FEATURES) does not load an absolute path that is already stored ERROR</p>
+<p>LoadError: Cannot load such file -- /Users/jared/projects/mruby-spec/rubyspec/fixtures/code/load_fixture.rb</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-8"><p>Kernel#require ($LOAD_FEATURES) does not load a ./ relative path that is already stored ERROR</p>
+<p>LoadError: Cannot load such file -- ./load_fixture.rb</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-9"><p>Kernel#require ($LOAD_FEATURES) does not load a ../ relative path that is already stored ERROR</p>
+<p>LoadError: Cannot load such file -- ../load_fixture.rb</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-10"><p>Kernel#require ($LOAD_FEATURES) does not load a non-canonical path that is already stored ERROR</p>
+<p>LoadError: Cannot load such file -- code/../code/load_fixture.rb</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-11"><p>Kernel#require ($LOAD_FEATURES) respects being replaced with a new array ERROR</p>
+<p>LoadError: Cannot load such file -- /Users/jared/projects/mruby-spec/rubyspec/fixtures/code/load_fixture.rb</p>
+<pre>

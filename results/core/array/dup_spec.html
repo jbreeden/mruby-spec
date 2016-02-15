@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Array#dup</p>
+<ul>
+<li class="fail">- returns an Array or a subclass instance (<a href="#details-1">FAILED - 1</a>)</li>
+<li class="pass">- produces a shallow copy where the references are directly copied</li>
+<li class="pass">- creates a new array containing all elements or the original</li>
+<li class="fail">- copies taint status from the original (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- copies untrusted status from the original (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="fail">- does not copy frozen status from the original (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="pass">- does not copy singleton methods</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Array#dup returns an Array or a subclass instance FAILED</p>
+<p>Expected [1, 2] (Array) to be an instance of ArraySpecs::MyArray</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Array#dup copies taint status from the original ERROR</p>
+<p>NoMethodError: undefined method 'taint' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Array#dup copies untrusted status from the original ERROR</p>
+<p>NoMethodError: undefined method 'untrust' for [1, 2, 3, 4]</p>
+<pre>

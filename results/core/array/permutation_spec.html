@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Array#permutation</p>
+<ul>
+<li class="fail">- returns an Enumerator of all permutations when called without a block or arguments (<a href="#details-1">ERROR - 1</a>)</li>
+<li class="fail">- returns an Enumerator of permutations of given length when called with an argument but no block (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- yields all permutations to the block then returns self when called with block but no arguments (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="fail">- yields all permutations of given length to the block then returns self when called with block and argument (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="fail">- returns the empty permutation ([[]]) when the given length is 0 (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- returns the empty permutation([]) when called on an empty Array (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- returns no permutations when the given length has no permutations (<a href="#details-7">ERROR - 7</a>)</li>
+<li class="fail">- handles duplicate elements correctly (<a href="#details-8">ERROR - 8</a>)</li>
+<li class="fail">- handles nested Arrays correctly (<a href="#details-9">ERROR - 9</a>)</li>
+<li class="fail">- truncates Float arguments (<a href="#details-10">ERROR - 10</a>)</li>
+<li class="fail">- returns an Enumerator which works as expected even when the array was modified (<a href="#details-11">ERROR - 11</a>)</li>
+<li class="fail">- generates from a defensive copy, ignoring mutations (<a href="#details-12">ERROR - 12</a>)</li>
+</ul>
+</div>
+<div><p>Array#permutation when no block is given returned Enumerator size with an array size greater than 0</p>
+<ul>
+<li class="fail">- returns the descending factorial of array size and given length (<a href="#details-13">ERROR - 13</a>)</li>
+<li class="fail">- returns the descending factorial of array size with array size when there's no param (<a href="#details-14">ERROR - 14</a>)</li>
+</ul>
+</div>
+<div><p>Array#permutation when no block is given returned Enumerator size with an empty array</p>
+<ul>
+<li class="fail">- returns 1 when the given length is 0 (<a href="#details-15">ERROR - 15</a>)</li>
+<li class="fail">- returns 1 when there's param (<a href="#details-16">ERROR - 16</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Array#permutation returns an Enumerator of all permutations when called without a block or arguments ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Array#permutation returns an Enumerator of permutations of given length when called with an argument but no block ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Array#permutation yields all permutations to the block then returns self when called with block but no arguments ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-4"><p>Array#permutation yields all permutations of given length to the block then returns self when called with block and argument ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-5"><p>Array#permutation returns the empty permutation ([[]]) when the given length is 0 ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-6"><p>Array#permutation returns the empty permutation([]) when called on an empty Array ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for []</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-7"><p>Array#permutation returns no permutations when the given length has no permutations ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-8"><p>Array#permutation handles duplicate elements correctly ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3, 1]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-9"><p>Array#permutation handles nested Arrays correctly ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3, [4, 5]]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-10"><p>Array#permutation truncates Float arguments ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-11"><p>Array#permutation returns an Enumerator which works as expected even when the array was modified ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-12"><p>Array#permutation generates from a defensive copy, ignoring mutations ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-13"><p>Array#permutation when no block is given returned Enumerator size with an array size greater than 0 returns the descending factorial of array size and given length ERROR</p>
+<p>NoMethodError: undefined method 'permutation' for [1, 2, 3]</p>
+<pre>

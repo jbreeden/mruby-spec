@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>A singleton class</p>
+<ul>
+<li class="pass">- is TrueClass for true</li>
+<li class="pass">- is FalseClass for false</li>
+<li class="pass">- is NilClass for nil</li>
+<li class="pass">- raises a TypeError for Fixnum's</li>
+<li class="pass">- raises a TypeError for symbols</li>
+<li class="pass">- is a singleton Class instance</li>
+<li class="pass">- is a Class for classes</li>
+<li class="pass">- inherits from Class for classes</li>
+<li class="fail">- is a subclass of Class's singleton class (<a href="#details-1">FAILED - 1</a>)</li>
+<li class="fail">- is a subclass of the same level of Class's singleton class (<a href="#details-2">FAILED - 2</a>)</li>
+<li class="pass">- is a subclass of a superclass's singleton class</li>
+<li class="pass">- is a subclass of the same level of superclass's singleton class</li>
+<li class="pass">- for BasicObject has Class as it's superclass</li>
+<li class="pass">- for BasicObject has the proper level of superclass for Class</li>
+<li class="pass">- has class String as the superclass of a String instance</li>
+<li class="pass">- doesn't have singleton class</li>
+</ul>
+</div>
+<div><p>A constant on a singleton class</p>
+<ul>
+<li class="pass">- can be accessed after the singleton class body is reopened</li>
+<li class="pass">- can be accessed via self::CONST</li>
+<li class="pass">- can be accessed via const_get</li>
+<li class="pass">- is not defined on the object's class</li>
+<li class="pass">- is not defined in the singleton class opener's scope</li>
+<li class="pass">- cannot be accessed via object::CONST</li>
+<li class="pass">- raises a NameError for anonymous_module::CONST</li>
+<li class="pass">- appears in the singleton class constant list</li>
+<li class="pass">- does not appear in the object's class constant list</li>
+<li class="pass">- is not preserved when the object is duped</li>
+<li class="pass">- is preserved when the object is cloned</li>
+</ul>
+</div>
+<div><p>Defining instance methods on a singleton class</p>
+<ul>
+<li class="fail">- defines public methods (<a href="#details-3">ERROR - 3</a>)</li>
+</ul>
+</div>
+<div><p>Instance methods of a singleton class</p>
+<ul>
+<li class="pass">- include ones of the object's class</li>
+<li class="pass">- does not include class methods of the object's class</li>
+<li class="pass">- include instance methods of Object</li>
+<li class="pass">- does not include class methods of Object</li>
+</ul>
+</div>
+<div><p>Instance methods of a singleton class for a class</p>
+<ul>
+<li class="pass">- include instance methods of Class</li>
+<li class="pass">- does not include class methods of Class</li>
+<li class="pass">- does not include instance methods of the singleton class of Class</li>
+<li class="pass">- does not include class methods of the singleton class of Class</li>
+</ul>
+</div>
+<div><p>Instance methods of a singleton class for a singleton class</p>
+<ul>
+<li class="pass">- includes instance methods of the singleton class of Class</li>
+<li class="pass">- does not include class methods of the singleton class of Class</li>
+</ul>
+</div>
+<div><p>Class methods of a singleton class</p>
+<ul>
+<li class="fail">- include ones of the object's class (<a href="#details-4">FAILED - 4</a>)</li>
+<li class="pass">- does not include instance methods of the object's class</li>
+<li class="pass">- include instance methods of Class</li>
+<li class="pass">- does not include class methods of Class</li>
+</ul>
+</div>
+<div><p>Class methods of a singleton class for a class</p>
+<ul>
+<li class="pass">- include instance methods of Class</li>
+<li class="pass">- include class methods of Class</li>
+<li class="pass">- include instance methods of the singleton class of Class</li>
+<li class="pass">- does not include class methods of the singleton class of Class</li>
+</ul>
+</div>
+<div><p>Class methods of a singleton class for a singleton class</p>
+<ul>
+<li class="fail">- include instance methods of the singleton class of Class (<a href="#details-5">FAILED - 5</a>)</li>
+<li class="fail">- include class methods of the singleton class of Class (<a href="#details-6">FAILED - 6</a>)</li>
+</ul>
+</div>
+<div><p>Instantiating a singleton class</p>
+<ul>
+<li class="pass">- raises a TypeError when new is called</li>
+<li class="fail">- raises a TypeError when allocate is called (<a href="#details-7">ERROR - 7</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>A singleton class is a subclass of Class's singleton class FAILED</p>
+<p>Expected #&lt;Class:ClassSpecs::A&gt; (Class) to be kind of #&lt;Class:Class&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>A singleton class is a subclass of the same level of Class's singleton class FAILED</p>
+<p>Expected #&lt;Class:#&lt;Class:ClassSpecs::A&gt;&gt; (Class)
+to be kind of #&lt;Class:#&lt;Class:Class&gt;&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Defining instance methods on a singleton class defines public methods ERROR</p>
+<p>NoMethodError: undefined method 'public_instance_methods' for #&lt;Class:#&lt;ClassSpecs::K:0x7f873886afd0&gt;&gt;</p>
+<pre>

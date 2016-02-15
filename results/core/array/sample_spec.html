@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Array#sample</p>
+<ul>
+<li class="pass">- returns nil for an empty Array</li>
+<li class="pass">- returns a single value when not passed a count</li>
+<li class="pass">- returns an empty Array when passed zero</li>
+<li class="pass">- returns an Array of elements when passed a count</li>
+<li class="pass">- returns elements from the Array</li>
+<li class="pass">- returns at most the number of elements in the Array</li>
+<li class="pass">- does not return the same value if the Array has unique values</li>
+<li class="pass">- may return the same value if the array is not unique</li>
+<li class="pass">- calls #to_int to convert the count when passed an Object</li>
+<li class="pass">- raises ArgumentError when passed a negative count</li>
+<li class="pass">- does not return subclass instances with Array subclass</li>
+</ul>
+</div>
+<div><p>Array#sample with options</p>
+<ul>
+<li class="fail">- calls #to_hash to convert the passed Object (<a href="#details-1">ERROR - 1</a>)</li>
+<li class="fail">- calls #to_hash to convert the passed Object (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- calls #to_int on the first argument and #to_hash on the second when passed Objects (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="fail">- calls #to_int on the first argument and #to_hash on the second when passed Objects (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="fail">- calls #rand on the Object passed by the :random key in the arguments Hash (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- calls #rand on the Object passed by the :random key in the arguments Hash (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- ignores an Object passed for the RNG if it does not define #rand (<a href="#details-7">ERROR - 7</a>)</li>
+</ul>
+</div>
+<div><p>Array#sample with options when the object returned by #rand is a Fixnum</p>
+<ul>
+<li class="fail">- uses the fixnum as index (<a href="#details-8">ERROR - 8</a>)</li>
+<li class="fail">- uses the fixnum as index (<a href="#details-9">ERROR - 9</a>)</li>
+<li class="fail">- raises a RangeError if the value is less than zero (<a href="#details-10">ERROR - 10</a>)</li>
+<li class="fail">- raises a RangeError if the value is less than zero (<a href="#details-11">ERROR - 11</a>)</li>
+<li class="fail">- raises a RangeError if the value is equal to the Array size (<a href="#details-12">ERROR - 12</a>)</li>
+<li class="fail">- raises a RangeError if the value is equal to the Array size (<a href="#details-13">ERROR - 13</a>)</li>
+</ul>
+</div>
+<div><p>Array#sample when the object returned by #rand is not a Fixnum but responds to #to_int</p>
+<ul>
+<li class="fail">- calls #to_int on the Object (<a href="#details-14">ERROR - 14</a>)</li>
+<li class="fail">- calls #to_int on the Object (<a href="#details-15">ERROR - 15</a>)</li>
+<li class="fail">- raises a RangeError if the value is less than zero (<a href="#details-16">ERROR - 16</a>)</li>
+<li class="fail">- raises a RangeError if the value is less than zero (<a href="#details-17">ERROR - 17</a>)</li>
+<li class="fail">- raises a RangeError if the value is equal to the Array size (<a href="#details-18">ERROR - 18</a>)</li>
+<li class="fail">- raises a RangeError if the value is equal to the Array size (<a href="#details-19">ERROR - 19</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Array#sample with options calls #to_hash to convert the passed Object ERROR</p>
+<p>TypeError: can't convert MockObject into Integer</p>
+<pre>

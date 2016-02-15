@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Range#to_a</p>
+<ul>
+<li class="fail">- converts self to an array (<a href="#details-1">FAILED - 1</a>)</li>
+<li class="pass">- returns empty array for descending-ordered</li>
+<li class="fail">- works with Ranges of Symbols (<a href="#details-2">ERROR - 2</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Range#to_a converts self to an array FAILED</p>
+<p>Expected TypeError but no exception was raised (#@result was returned)</p>
+<pre>

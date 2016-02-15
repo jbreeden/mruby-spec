@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Array#[]=</p>
+<ul>
+<li class="pass">- sets the value of the element at index</li>
+<li class="pass">- sets the section defined by [start,length] to other</li>
+<li class="pass">- replaces the section defined by [start,length] with the given values</li>
+<li class="pass">- just sets the section defined by [start,length] to other even if other is nil</li>
+<li class="pass">- returns nil if the rhs is nil</li>
+<li class="pass">- sets the section defined by range to other</li>
+<li class="pass">- replaces the section defined by range with the given values</li>
+<li class="pass">- just sets the section defined by range to other even if other is nil</li>
+<li class="fail">- expands and nil-pads the array if section assigned by range is outside array boundaries (<a href="#details-1">FAILED - 1</a>)</li>
+<li class="pass">- calls to_int on its start and length arguments</li>
+<li class="fail">- checks frozen before attempting to coerce arguments (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- sets elements in the range arguments when passed ranges (<a href="#details-3">FAILED - 3</a>)</li>
+<li class="pass">- inserts the given elements with [range] which the range is zero-width</li>
+<li class="pass">- inserts the given elements with [start, length] which length is zero</li>
+<li class="pass">- inserts the given elements with [range] which the range has negative width</li>
+<li class="pass">- just inserts nil if the section defined by range is zero-width and the rhs is nil</li>
+<li class="pass">- just inserts nil if the section defined by range has negative width and the rhs is nil</li>
+<li class="pass">- does nothing if the section defined by range is zero-width and the rhs is an empty array</li>
+<li class="pass">- does nothing if the section defined by range has negative width and the rhs is an empty array</li>
+<li class="pass">- tries to convert Range elements to Integers using #to_int with [m..n] and [m...n]</li>
+<li class="fail">- raises an IndexError when passed indexes out of bounds (<a href="#details-4">FAILED - 4</a>)</li>
+<li class="fail">- calls to_ary on its rhs argument for multi-element sets (<a href="#details-5">FAILED - 5</a>)</li>
+<li class="pass">- does not call to_ary on rhs array subclasses for multi-element sets</li>
+<li class="fail">- raises a RuntimeError on a frozen array (<a href="#details-6">ERROR - 6</a>)</li>
+</ul>
+</div>
+<div><p>Array#[]= with [index]</p>
+<ul>
+<li class="pass">- returns value assigned if idx is inside array</li>
+<li class="pass">- returns value assigned if idx is right beyond right array boundary</li>
+<li class="pass">- returns value assigned if idx far beyond right array boundary</li>
+<li class="pass">- sets the value of the element at index</li>
+<li class="pass">- sets the value of the element if it is right beyond the array boundary</li>
+</ul>
+</div>
+<div><p>Array#[]= with [index, count]</p>
+<ul>
+<li class="pass">- returns non-array value if non-array value assigned</li>
+<li class="pass">- returns array if array assigned</li>
+<li class="pass">- just sets the section defined by [start,length] to nil even if the rhs is nil</li>
+<li class="pass">- just sets the section defined by [start,length] to nil if negative index within bounds, cnt > 0 and the rhs is nil</li>
+<li class="pass">- replaces the section defined by [start,length] to other</li>
+<li class="pass">- replaces the section to other if idx < 0 and cnt > 0</li>
+<li class="pass">- replaces the section to other even if cnt spanning beyond the array boundary</li>
+<li class="pass">- pads the Array with nils if the span is past the end</li>
+<li class="fail">- inserts other section in place defined by idx (<a href="#details-7">FAILED - 7</a>)</li>
+<li class="pass">- raises an IndexError when passed start and negative length</li>
+</ul>
+</div>
+<div><p>Array#[]= with [m..n]</p>
+<ul>
+<li class="pass">- returns non-array value if non-array value assigned</li>
+<li class="pass">- returns array if array assigned</li>
+<li class="pass">- just sets the section defined by range to nil even if the rhs is nil</li>
+<li class="pass">- just sets the section defined by range to nil if m and n < 0 and the rhs is nil</li>
+<li class="pass">- replaces the section defined by range</li>
+<li class="pass">- replaces the section if m and n < 0</li>
+<li class="pass">- replaces the section if m < 0 and n > 0</li>
+<li class="pass">- inserts the other section at m if m > n</li>
+<li class="pass">- accepts Range subclasses</li>
+</ul>
+</div>
+<div><p>Array#[] after a shift</p>
+<ul>
+<li class="pass">- works for insertion</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Array#[]= expands and nil-pads the array if section assigned by range is outside array boundaries FAILED</p>
+<p>Expected ["a"] to equal ["a", nil, nil, "b", "c"]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Array#[]= checks frozen before attempting to coerce arguments ERROR</p>
+<p>NoMethodError: undefined method 'freeze' for [1, 2, 3, 4]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Array#[]= sets elements in the range arguments when passed ranges FAILED</p>
+<p>Expected [1, 2, 3] to equal [1, 2, 3, nil, nil]</p>
+<pre>

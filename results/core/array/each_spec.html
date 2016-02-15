@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Array#each</p>
+<ul>
+<li class="pass">- yields each element to the block</li>
+<li class="pass">- yields each element to a block that takes multiple arguments</li>
+<li class="pass">- returns an Enumerator if no block given</li>
+</ul>
+</div>
+<div><p>Array#each when no block is given returned Enumerator</p>
+<ul>
+<li class="fail">- size returns the enumerable size (<a href="#details-1">ERROR - 1</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Array#each when no block is given returned Enumerator size returns the enumerable size ERROR</p>
+<p>NoMethodError: undefined method 'size' for #&lt;Enumerator: [1, 2, 3]:each&gt;</p>
+<pre>

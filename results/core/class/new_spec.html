@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Class.new with a block given</p>
+<ul>
+<li class="pass">- yields the new class as self in the block</li>
+<li class="pass">- uses the given block as the class' body</li>
+<li class="pass">- creates a subclass of the given superclass</li>
+<li class="fail">- runs the inherited hook after yielding the block (<a href="#details-1">FAILED - 1</a>)</li>
+</ul>
+</div>
+<div><p>Class.new</p>
+<ul>
+<li class="pass">- creates a new anonymous class</li>
+<li class="pass">- raises a TypeError if passed a metaclass</li>
+<li class="fail">- creates a class without a name (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- creates a class that can be given a name by assigning it to a constant (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="pass">- sets the new class' superclass to the given class</li>
+<li class="pass">- sets the new class' superclass to Object when no class given</li>
+<li class="pass">- raises a TypeError when given a non-Class</li>
+</ul>
+</div>
+<div><p>Class#new</p>
+<ul>
+<li class="pass">- returns a new instance of self</li>
+<li class="pass">- invokes #initialize on the new instance with the given args</li>
+<li class="fail">- passes the block to #initialize (<a href="#details-4">FAILED - 4</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Class.new with a block given runs the inherited hook after yielding the block FAILED</p>
+<p>Expected [#&lt;Class:0x7fbf7084da10&gt;, CoreClassSpecs::Inherited::D]
+to equal [CoreClassSpecs::Inherited::D, #&lt;Class:0x7fbf7084da10&gt;]</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/mocks/mock.rb:199:in Mock.cleanup
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Class.new creates a class without a name ERROR</p>
+<p>NoMethodError: undefined method 'name' for #&lt;Class:0x7fbf708543f0&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Class.new creates a class that can be given a name by assigning it to a constant ERROR</p>
+<p>NameError: uninitialized constant MyClass</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-4"><p>Class#new passes the block to #initialize FAILED</p>
+<p>Expected #&lt;#&lt;Class:0x7fbf70996970&gt;:0x7fbf709968b0&gt; to equal 42</p>
+<pre>

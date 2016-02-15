@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Hash#flatten</p>
+<ul>
+<li class="pass">- returns an Array</li>
+<li class="pass">- returns an empty Array for an empty Hash</li>
+<li class="pass">- sets each even index of the Array to a key of the Hash</li>
+<li class="pass">- sets each odd index of the Array to the value corresponding to the previous element</li>
+<li class="pass">- does not recursively flatten Array values when called without arguments</li>
+<li class="pass">- does not recursively flatten Hash values when called without arguments</li>
+<li class="pass">- recursively flattens Array values when called with an argument >= 2</li>
+<li class="pass">- recursively flattens Array values to the given depth</li>
+<li class="fail">- raises a TypeError if given a non-Integer argument (<a href="#details-1">ERROR - 1</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Hash#flatten raises a TypeError if given a non-Integer argument ERROR</p>
+<p>NoMethodError: undefined method '&gt;' for #&lt;Object:0x7fa613037150&gt;</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/core/hash/flatten_spec.rb:59:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/hash/flatten_spec.rb:60:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/hash/flatten_spec.rb:62:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+</ol>
+<p>Finished in 0.002936 seconds</p>
+<p class="fail">1 file, 9 examples, 15 expectations, 0 failures, 1 error, 0 tagged</p>
+</body>
+</html>
+mruby 1.2.0 (2015-11-17) 
+00003 NODE_SCOPE:
+00003   NODE_BEGIN:
+00003     NODE_CALL:
+00003       NODE_GVAR $:
+00003       method='unshift' (162)
+00003       args:
+00003         NODE_CALL:
+00003           NODE_CONST File
+00003           method='expand_path' (1532)
+00003           args:
+00003             NODE_STR "../../lib" len 9
+00003             NODE_STR "/Users/jared/projects/mruby-spec/mspec/bin/mspec-run" len 52
+00005     NODE_CALL:
+00005       NODE_SELF
+00005       method='require' (1726)
+00005       args:
+00005         NODE_STR "mspec/commands/mspec-run" len 24
+00006     NODE_CALL:
+00006       NODE_SELF
+00006       method='require' (1726)
+00006       args:
+00006         NODE_STR "mspec" len 5
+00008     NODE_CALL:
+00008       NODE_CONST MSpecRun
+00008       method='main' (2121)
+irep 0x7fa612551230 nregs=6 nlocals=1 pools=4 syms=7 reps=0
+file: /Users/jared/projects/mruby-spec/mspec/bin/mspec-run
+    3 000 OP_GETGLOBAL	R1	:$:
+    3 001 OP_GETCONST	R2	:File
+    3 002 OP_STRING	R3	L(0)	; "../../lib"
+    3 003 OP_STRING	R4	L(1)	; "/Users/jared/projects/mruby-spec/mspec/bin/mspec-run"
+    3 004 OP_SEND	R2	:expand_path	2
+    3 005 OP_SEND	R1	:unshift	1
+    5 006 OP_LOADSELF	R1		
+    5 007 OP_STRING	R2	L(2)	; "mspec/commands/mspec-run"
+    5 008 OP_SEND	R1	:require	1
+    6 009 OP_LOADSELF	R1		
+    6 010 OP_STRING	R2	L(3)	; "mspec"
+    6 011 OP_SEND	R1	:require	1
+    8 012 OP_GETCONST	R1	:MSpecRun
+    8 013 OP_SEND	R1	:main	0
+    8 014 OP_STOP
+

@@ -1,0 +1,379 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Kernel#require_relative with a relative path</p>
+<ul>
+<li class="fail">- needs to be reviewed for spec completeness (<a href="#details-1">ERROR - 1</a>)</li>
+<li class="fail">- loads a path relative to the current file (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- loads a file defining many methods (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="fail">- raises a LoadError if the file does not exist (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="fail">- raises a LoadError if basepath does not exist (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- stores the missing path in a LoadError object (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- calls #to_str on non-String objects (<a href="#details-7">ERROR - 7</a>)</li>
+<li class="fail">- raises a TypeError if argument does not respond to #to_str (<a href="#details-8">ERROR - 8</a>)</li>
+<li class="fail">- raises a TypeError if passed an object that has #to_s but not #to_str (<a href="#details-9">ERROR - 9</a>)</li>
+<li class="fail">- raises a TypeError if #to_str does not return a String (<a href="#details-10">ERROR - 10</a>)</li>
+<li class="fail">- calls #to_path on non-String objects (<a href="#details-11">ERROR - 11</a>)</li>
+<li class="fail">- calls #to_str on non-String objects returned by #to_path (<a href="#details-12">ERROR - 12</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require_relative with a relative path when file is a symlink</p>
+<ul>
+<li class="fail">- loads a path relative to current file (<a href="#details-13">ERROR - 13</a>)</li>
+<li class="fail">- loads a path relative to current file (<a href="#details-14">ERROR - 14</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require_relative with a relative path (file extensions)</p>
+<ul>
+<li class="fail">- loads a .rb extensioned file when passed a non-extensioned path (<a href="#details-15">ERROR - 15</a>)</li>
+<li class="fail">- loads a .rb extensioned file when a C-extension file of the same name is loaded (<a href="#details-16">ERROR - 16</a>)</li>
+<li class="fail">- does not load a C-extension file if a .rb extensioned file is already loaded (<a href="#details-17">ERROR - 17</a>)</li>
+<li class="fail">- loads a .rb extensioned file when passed a non-.rb extensioned path (<a href="#details-18">ERROR - 18</a>)</li>
+<li class="fail">- loads a .rb extensioned file when a complex-extensioned C-extension file of the same name is loaded (<a href="#details-19">ERROR - 19</a>)</li>
+<li class="fail">- does not load a C-extension file if a complex-extensioned .rb file is already loaded (<a href="#details-20">ERROR - 20</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require_relative with a relative path ($LOADED_FEATURES)</p>
+<ul>
+<li class="fail">- stores an absolute path (<a href="#details-21">ERROR - 21</a>)</li>
+<li class="fail">- does not store the path if the load fails (<a href="#details-22">ERROR - 22</a>)</li>
+<li class="fail">- does not load an absolute path that is already stored (<a href="#details-23">ERROR - 23</a>)</li>
+<li class="fail">- adds the suffix of the resolved filename (<a href="#details-24">ERROR - 24</a>)</li>
+<li class="fail">- loads a path for a file already loaded with a relative path (<a href="#details-25">ERROR - 25</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require_relative with an absolute path</p>
+<ul>
+<li class="pass">- needs to be reviewed for spec completeness</li>
+<li class="fail">- loads a path relative to the current file (<a href="#details-26">ERROR - 26</a>)</li>
+<li class="fail">- loads a file defining many methods (<a href="#details-27">ERROR - 27</a>)</li>
+<li class="fail">- raises a LoadError if the file does not exist (<a href="#details-28">ERROR - 28</a>)</li>
+<li class="fail">- raises a LoadError if basepath does not exist (<a href="#details-29">ERROR - 29</a>)</li>
+<li class="fail">- stores the missing path in a LoadError object (<a href="#details-30">ERROR - 30</a>)</li>
+<li class="fail">- calls #to_str on non-String objects (<a href="#details-31">ERROR - 31</a>)</li>
+<li class="fail">- calls #to_str on non-String objects (<a href="#details-32">ERROR - 32</a>)</li>
+<li class="fail">- raises a TypeError if argument does not respond to #to_str (<a href="#details-33">ERROR - 33</a>)</li>
+<li class="fail">- raises a TypeError if passed an object that has #to_s but not #to_str (<a href="#details-34">ERROR - 34</a>)</li>
+<li class="fail">- raises a TypeError if #to_str does not return a String (<a href="#details-35">ERROR - 35</a>)</li>
+<li class="fail">- raises a TypeError if #to_str does not return a String (<a href="#details-36">ERROR - 36</a>)</li>
+<li class="fail">- calls #to_path on non-String objects (<a href="#details-37">ERROR - 37</a>)</li>
+<li class="fail">- calls #to_path on non-String objects (<a href="#details-38">ERROR - 38</a>)</li>
+<li class="fail">- calls #to_str on non-String objects returned by #to_path (<a href="#details-39">ERROR - 39</a>)</li>
+<li class="fail">- calls #to_str on non-String objects returned by #to_path (<a href="#details-40">ERROR - 40</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require_relative with an absolute path (file extensions)</p>
+<ul>
+<li class="fail">- loads a .rb extensioned file when passed a non-extensioned path (<a href="#details-41">ERROR - 41</a>)</li>
+<li class="fail">- loads a .rb extensioned file when a C-extension file of the same name is loaded (<a href="#details-42">ERROR - 42</a>)</li>
+<li class="fail">- does not load a C-extension file if a .rb extensioned file is already loaded (<a href="#details-43">ERROR - 43</a>)</li>
+<li class="fail">- loads a .rb extensioned file when passed a non-.rb extensioned path (<a href="#details-44">ERROR - 44</a>)</li>
+<li class="fail">- loads a .rb extensioned file when a complex-extensioned C-extension file of the same name is loaded (<a href="#details-45">ERROR - 45</a>)</li>
+<li class="fail">- does not load a C-extension file if a complex-extensioned .rb file is already loaded (<a href="#details-46">ERROR - 46</a>)</li>
+</ul>
+</div>
+<div><p>Kernel#require_relative with an absolute path ($LOAD_FEATURES)</p>
+<ul>
+<li class="fail">- stores an absolute path (<a href="#details-47">ERROR - 47</a>)</li>
+<li class="fail">- does not store the path if the load fails (<a href="#details-48">ERROR - 48</a>)</li>
+<li class="fail">- does not load an absolute path that is already stored (<a href="#details-49">ERROR - 49</a>)</li>
+<li class="fail">- adds the suffix of the resolved filename (<a href="#details-50">ERROR - 50</a>)</li>
+<li class="fail">- loads a path for a file already loaded with a relative path (<a href="#details-51">ERROR - 51</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path needs to be reviewed for spec completeness ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path loads a path relative to the current file ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path loads a file defining many methods ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-4"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path raises a LoadError if the file does not exist ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-5"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path raises a LoadError if basepath does not exist ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-6"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path stores the missing path in a LoadError object ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-7"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path calls #to_str on non-String objects ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-8"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path raises a TypeError if argument does not respond to #to_str ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-9"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path raises a TypeError if passed an object that has #to_s but not #to_str ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-10"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path raises a TypeError if #to_str does not return a String ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-11"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path calls #to_path on non-String objects ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-12"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path calls #to_str on non-String objects returned by #to_path ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-13"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path when file is a symlink loads a path relative to current file ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-14"><p>An exception occurred during: after :each
+Kernel#require_relative with a relative path when file is a symlink loads a path relative to current file ERROR</p>
+<p>NoMethodError: undefined method 'start_with?' for nil</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-15"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path (file extensions) loads a .rb extensioned file when passed a non-extensioned path ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-16"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path (file extensions) loads a .rb extensioned file when a C-extension file of the same name is loaded ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-17"><p>An exception occurred during: before :each
+Kernel#require_relative with a relative path (file extensions) does not load a C-extension file if a .rb extensioned file is already loaded ERROR</p>
+<p>NoMethodError: undefined method 'realpath' for File</p>
+<pre>

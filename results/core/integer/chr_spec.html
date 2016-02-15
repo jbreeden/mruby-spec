@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Integer#chr without argument</p>
+<ul>
+<li class="pass">- returns a String</li>
+<li class="pass">- returns a new String for each call</li>
+<li class="fail">- raises a RangeError is self is less than 0 (<a href="#details-1">ERROR - 1</a>)</li>
+</ul>
+</div>
+<div><p>Integer#chr without argument when Encoding.default_internal is nil</p>
+<ul>
+<li class="fail">- raises a RangeError is self is greater than 255 (<a href="#details-2">ERROR - 2</a>)</li>
+</ul>
+</div>
+<div><p>Integer#chr without argument when Encoding.default_internal is nil and self is between 0 and 127 (inclusive)</p>
+<ul>
+<li class="fail">- returns a US-ASCII String (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="pass">- returns a String encoding self interpreted as a US-ASCII codepoint</li>
+</ul>
+</div>
+<div><p>Integer#chr without argument when Encoding.default_internal is nil and self is between 128 and 255 (inclusive)</p>
+<ul>
+<li class="fail">- returns an ASCII-8BIT String (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="pass">- returns a String containing self interpreted as a byte</li>
+</ul>
+</div>
+<div><p>Integer#chr without argument when Encoding.default_internal is not nil and self is between 0 and 127 (inclusive)</p>
+<ul>
+<li class="fail">- returns a US-ASCII String (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- returns a US-ASCII String (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- returns a String encoding self interpreted as a US-ASCII codepoint (<a href="#details-7">ERROR - 7</a>)</li>
+<li class="fail">- returns a String encoding self interpreted as a US-ASCII codepoint (<a href="#details-8">ERROR - 8</a>)</li>
+</ul>
+</div>
+<div><p>Integer#chr without argument when Encoding.default_internal is not nil and self is between 128 and 255 (inclusive)</p>
+<ul>
+<li class="fail">- returns an ASCII-8BIT String (<a href="#details-9">ERROR - 9</a>)</li>
+<li class="fail">- returns an ASCII-8BIT String (<a href="#details-10">ERROR - 10</a>)</li>
+<li class="fail">- returns a String containing self interpreted as a byte (<a href="#details-11">ERROR - 11</a>)</li>
+<li class="fail">- returns a String containing self interpreted as a byte (<a href="#details-12">ERROR - 12</a>)</li>
+</ul>
+</div>
+<div><p>Integer#chr without argument when Encoding.default_internal is not nil and self is greater than 255</p>
+<ul>
+<li class="fail">- returns a String with the default internal encoding (<a href="#details-13">ERROR - 13</a>)</li>
+<li class="fail">- returns a String with the default internal encoding (<a href="#details-14">ERROR - 14</a>)</li>
+<li class="fail">- returns a String encoding self interpreted as a codepoint in the default internal encoding (<a href="#details-15">ERROR - 15</a>)</li>
+<li class="fail">- returns a String encoding self interpreted as a codepoint in the default internal encoding (<a href="#details-16">ERROR - 16</a>)</li>
+<li class="fail">- raises RangeError if self is invalid as a codepoint in the default internal encoding (<a href="#details-17">ERROR - 17</a>)</li>
+<li class="fail">- raises RangeError if self is invalid as a codepoint in the default internal encoding (<a href="#details-18">ERROR - 18</a>)</li>
+</ul>
+</div>
+<div><p>Integer#chr with an encoding argument</p>
+<ul>
+<li class="fail">- returns a String (<a href="#details-19">ERROR - 19</a>)</li>
+<li class="fail">- returns a new String for each call (<a href="#details-20">ERROR - 20</a>)</li>
+<li class="fail">- accepts a String as an argument (<a href="#details-21">FAILED - 21</a>)</li>
+<li class="fail">- converts a String to an Encoding as Encoding.find does (<a href="#details-22">ERROR - 22</a>)</li>
+<li class="fail">- raises a RangeError is self is less than 0 (<a href="#details-23">ERROR - 23</a>)</li>
+<li class="fail">- returns a String with the specified encoding (<a href="#details-24">ERROR - 24</a>)</li>
+<li class="fail">- returns a String encoding self interpreted as a codepoint in the specified encoding (<a href="#details-25">ERROR - 25</a>)</li>
+<li class="fail">- raises RangeError if self is invalid as a codepoint in the specified encoding (<a href="#details-26">FAILED - 26</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Integer#chr without argument raises a RangeError is self is less than 0 ERROR</p>
+<p>NoMethodError: undefined method 'chr' for 9.2233720368548e+18</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/core/integer/chr_spec.rb:14:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/integer/chr_spec.rb:14:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/integer/chr_spec.rb:141:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Integer#chr without argument when Encoding.default_internal is nil raises a RangeError is self is greater than 255 ERROR</p>
+<p>NoMethodError: undefined method 'chr' for 9.2233720368548e+18</p>
+<pre>
+/Users/jared/projects/mruby-spec/rubyspec/core/integer/chr_spec.rb:48:in Kernel.instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/matchers/raise_error.rb:9:in RaiseErrorMatcher.matches?
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/expectations/should.rb:7:in Object.should
+/Users/jared/projects/mruby-spec/rubyspec/core/integer/chr_spec.rb:48:in Kernel#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:179:in ContextState.protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:215:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:240:in MSpec.repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:239:in MSpec#repeat
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:207:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:206:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/context.rb:237:in ContextState.process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:39:in MSpec#describe
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/object.rb:11:in Object.describe
+/Users/jared/projects/mruby-spec/rubyspec/core/integer/chr_spec.rb:141:in Kernel#open
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec#instance_eval
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:70:in MSpec#protect
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:58:in MSpec.files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:52:in MSpec#files
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:44:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Integer#chr without argument when Encoding.default_internal is nil and self is between 0 and 127 (inclusive) returns a US-ASCII String ERROR</p>
+<p>NoMethodError: undefined method 'encoding' for "\000"</p>
+<pre>

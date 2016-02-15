@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Hash.[]</p>
+<ul>
+<li class="pass">- creates a Hash; values can be provided as the argument list</li>
+<li class="pass">- creates a Hash; values can be provided as one single hash</li>
+<li class="pass">- creates a Hash; values can be provided as a list of value-pairs in an array</li>
+<li class="fail">- coerces a single argument which responds to #to_ary (<a href="#details-1">ERROR - 1</a>)</li>
+<li class="fail">- coerces a single argument which responds to #to_ary (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- ignores elements that are not arrays (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="pass">- raises an ArgumentError for arrays of more than 2 elements</li>
+<li class="pass">- raises an ArgumentError when passed a list of value-invalid-pairs in an array</li>
+<li class="pass">- raises an ArgumentError when passed an odd number of arguments</li>
+<li class="pass">- calls to_hash</li>
+<li class="fail">- returns an instance of a subclass when passed an Array (<a href="#details-4">FAILED - 4</a>)</li>
+<li class="fail">- returns instances of subclasses (<a href="#details-5">FAILED - 5</a>)</li>
+<li class="fail">- returns an instance of the class it's called on (<a href="#details-6">FAILED - 6</a>)</li>
+<li class="fail">- does not call #initialize on the subclass instance (<a href="#details-7">FAILED - 7</a>)</li>
+<li class="pass">- removes the default_proc</li>
+</ul>
+</div>
+<div><p>Hash.[] passed zero arguments</p>
+<ul>
+<li class="pass">- returns an empty hash</li>
+</ul>
+</div>
+<div><p>Hash.[] passed an array</p>
+<ul>
+<li class="pass">- treats elements that are 2 element arrays as key and value</li>
+<li class="pass">- treats elements that are 1 element arrays as keys with value nil</li>
+</ul>
+</div>
+<div><p>Hash.[] passed a single argument which responds to #to_hash</p>
+<ul>
+<li class="pass">- coerces it and returns a copy</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Hash.[] coerces a single argument which responds to #to_ary ERROR</p>
+<p>ArgumentError: odd number of arguments for Hash</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>An exception occurred during: Mock.verify_count
+Hash.[] coerces a single argument which responds to #to_ary ERROR</p>
+<p>NoMethodError: undefined method '+@' for "but received it 0 times"</p>
+<pre>

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>ObjectSpace.garbage_collect</p>
+<ul>
+<li class="fail">- can be invoked without any exceptions (<a href="#details-1">FAILED - 1</a>)</li>
+<li class="fail">- doesn't accept any arguments (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- ignores the supplied block (<a href="#details-3">FAILED - 3</a>)</li>
+<li class="fail">- always returns nil (<a href="#details-4">ERROR - 4</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>ObjectSpace.garbage_collect can be invoked without any exceptions FAILED</p>
+<p>Expected to not get Exception
+but got NoMethodError (undefined method 'garbage_collect' for ObjectSpace)</p>
+<pre>

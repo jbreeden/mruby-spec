@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Spec Output For mruby (1.9)</title>
+<style type="text/css">
+ul {
+  list-style: none;
+}
+.fail {
+  color: red;
+}
+.pass {
+  color: green;
+}
+#details :target {
+  background-color: #ffffe0;
+}
+</style>
+</head>
+<body>
+<div><p>Time.mktime</p>
+<ul>
+<li class="fail">- creates a time based on given values, interpreted in the local time zone (<a href="#details-1">ERROR - 1</a>)</li>
+<li class="fail">- creates a time based on given C-style gmtime arguments, interpreted in the local time zone (<a href="#details-2">ERROR - 2</a>)</li>
+<li class="fail">- creates the correct time just before dst change (<a href="#details-3">ERROR - 3</a>)</li>
+<li class="fail">- creates the correct time just after dst change (<a href="#details-4">ERROR - 4</a>)</li>
+<li class="pass">- accepts 1 argument (year)</li>
+<li class="pass">- accepts 2 arguments (year, month)</li>
+<li class="pass">- accepts 3 arguments (year, month, day)</li>
+<li class="pass">- accepts 4 arguments (year, month, day, hour)</li>
+<li class="pass">- accepts 5 arguments (year, month, day, hour, minute)</li>
+<li class="pass">- raises a TypeError if the year is nil</li>
+<li class="fail">- accepts nil month, day, hour, minute, and second (<a href="#details-5">ERROR - 5</a>)</li>
+<li class="fail">- handles a String year (<a href="#details-6">ERROR - 6</a>)</li>
+<li class="fail">- coerces the year with #to_int (<a href="#details-7">ERROR - 7</a>)</li>
+<li class="fail">- handles a String month given as a numeral (<a href="#details-8">ERROR - 8</a>)</li>
+<li class="fail">- handles a String month given as a short month name (<a href="#details-9">ERROR - 9</a>)</li>
+<li class="fail">- coerces the month with #to_str (<a href="#details-10">ERROR - 10</a>)</li>
+<li class="fail">- coerces the month with #to_str (<a href="#details-11">ERROR - 11</a>)</li>
+<li class="pass">- coerces the month with #to_int</li>
+<li class="fail">- handles a String day (<a href="#details-12">ERROR - 12</a>)</li>
+<li class="pass">- coerces the day with #to_int</li>
+<li class="fail">- handles a String hour (<a href="#details-13">ERROR - 13</a>)</li>
+<li class="pass">- coerces the hour with #to_int</li>
+<li class="fail">- handles a String minute (<a href="#details-14">ERROR - 14</a>)</li>
+<li class="pass">- coerces the minute with #to_int</li>
+<li class="fail">- handles a String second (<a href="#details-15">ERROR - 15</a>)</li>
+<li class="pass">- coerces the second with #to_int</li>
+<li class="fail">- interprets all numerals as base 10 (<a href="#details-16">ERROR - 16</a>)</li>
+<li class="fail">- handles fractional seconds as a Float (<a href="#details-17">FAILED - 17</a>)</li>
+<li class="fail">- handles fractional seconds as a Rational (<a href="#details-18">ERROR - 18</a>)</li>
+<li class="fail">- handles years from 0 as such (<a href="#details-19">ERROR - 19</a>)</li>
+<li class="fail">- accepts various year ranges (<a href="#details-20">ERROR - 20</a>)</li>
+<li class="fail">- raises an ArgumentError for out of range month (<a href="#details-21">FAILED - 21</a>)</li>
+<li class="fail">- raises an ArgumentError for out of range day (<a href="#details-22">FAILED - 22</a>)</li>
+<li class="fail">- raises an ArgumentError for out of range hour (<a href="#details-23">FAILED - 23</a>)</li>
+<li class="fail">- raises an ArgumentError for out of range minute (<a href="#details-24">FAILED - 24</a>)</li>
+<li class="fail">- raises an ArgumentError for out of range second (<a href="#details-25">FAILED - 25</a>)</li>
+<li class="pass">- raises ArgumentError when given 9 arguments</li>
+<li class="pass">- raises ArgumentError when given 11 arguments</li>
+<li class="fail">- returns subclass instances (<a href="#details-26">ERROR - 26</a>)</li>
+<li class="fail">- handles string arguments (<a href="#details-27">ERROR - 27</a>)</li>
+<li class="fail">- handles float arguments (<a href="#details-28">ERROR - 28</a>)</li>
+<li class="fail">- raises an ArgumentError for out of range values (<a href="#details-29">ERROR - 29</a>)</li>
+<li class="pass">- handles microseconds</li>
+<li class="fail">- handles fractional microseconds as a Float (<a href="#details-30">ERROR - 30</a>)</li>
+<li class="fail">- handles fractional microseconds as a Rational (<a href="#details-31">ERROR - 31</a>)</li>
+<li class="fail">- ignores fractional seconds if a passed whole number of microseconds (<a href="#details-32">ERROR - 32</a>)</li>
+<li class="fail">- ignores fractional seconds if a passed fractional number of microseconds (<a href="#details-33">ERROR - 33</a>)</li>
+</ul>
+</div>
+<div><p>Time.mktime timezone changes</p>
+<ul>
+<li class="fail">- correctly adjusts the timezone change to 'CEST' on 'Europe/Amsterdam' (<a href="#details-34">ERROR - 34</a>)</li>
+</ul>
+</div>
+<hr>
+<ol id="details">
+<li id="details-1"><p>Time.mktime creates a time based on given values, interpreted in the local time zone ERROR</p>
+<p>TypeError: expected String</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-2"><p>Time.mktime creates a time based on given C-style gmtime arguments, interpreted in the local time zone ERROR</p>
+<p>TypeError: can't convert Symbol into Integer</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-3"><p>Time.mktime creates the correct time just before dst change ERROR</p>
+<p>ArgumentError: wrong number of arguments</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-4"><p>Time.mktime creates the correct time just after dst change ERROR</p>
+<p>ArgumentError: wrong number of arguments</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-5"><p>Time.mktime accepts nil month, day, hour, minute, and second ERROR</p>
+<p>TypeError: can't convert nil into Integer</p>
+<pre>
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/dotted.rb:115:in DottedFormatter.print
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:43:in HtmlFormatter.leave
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/exception.rb:39:in ExceptionState.backtrace
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:68:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/formatters/html.rb:63:in HtmlFormatter.finish
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec.actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:65:in MSpec#actions
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/runner/mspec.rb:45:in MSpec#process
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/commands/mspec-run.rb:91:in MSpecRun.run
+/Users/jared/projects/mruby-spec/mspec/lib/mspec/utils/script.rb:220:in MSpecScript#main
+/Users/jared/projects/mruby-spec/mspec/bin/mspec-run:8</pre>
+</li>
+
+<li id="details-6"><p>Time.mktime handles a String year ERROR</p>
+<p>TypeError: no implicit conversion of String into Integer</p>
+<pre>
