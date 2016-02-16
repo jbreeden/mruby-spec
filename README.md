@@ -11,6 +11,19 @@ Usage
 2. `rake init` to checkout `ruby/spec` and a `ruby/mspec` clone customized for MRuby.
 3. `rake` to run the selected tests. Test results are collected as a gh-pages branch
    (they'll show up under `./gh-pages`).
+   
+The default `rake` task runs all `core` and `language` tests. To select different
+tests to run, you can use
+
+```
+mspec/bin/mspec -t mruby rubyspec/path/to/tests
+```
+
+To run the same tests under valgrind, use
+
+```
+mspec/bin/mspec --valgrind -t mruby rubyspec/path/to/tests
+```
 
 Requirements
 ------------
