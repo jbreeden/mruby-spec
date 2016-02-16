@@ -4,6 +4,8 @@ MRUBY SPEC
 This project provides a Rakefile for running selected tests from RubySpec against
 [mruby](https://github.com/mruby/mruby) & [mruby-apr](https://github.com/jbreeden/mruby-apr).
 
+[You can find the latest test results here.](http://jbreeden.github.io/mruby-spec)
+
 Usage
 -------
 
@@ -32,13 +34,3 @@ Requirements
 1. An mruby build with the [mruby-apr](https://github.com/jbreeden/mruby-apr) gem
    included.
 2. The `mruby` executable must be on your path.
-
-Latest Results
---------------
-
-[Can be found here.](http://jbreeden.github.io/mruby-spec)
-
-TODO
-----
-
-Separate tests & results for pure mruby features from mruby-apr features.
