@@ -9,7 +9,7 @@ def run_test_file(f)
   File.open("#{results}.meta", 'w') { } # empty the file
   
   pid = nil
-  Timeout.timeout(30) do
+  Timeout.timeout(60) do
     pid = spawn "mspec/bin/mspec --format html -t mruby #{f} > #{results} 2> #{results}.stderr.txt"
     Process.wait(pid)
     File.open("#{results}.meta", 'w') { |f| 

@@ -2,24 +2,83 @@
 <head>
 
 <style>
-table {
+  body {
+    font-family: sans-serif;
+    font-size: 12pt;
+  }
+  
+  li {
+    padding: 6px 0px 6px 0px;
+  }
+
+  table {
     border-collapse: collapse;
-}
+    font-family: monospace;
+    font-size: 12pt;
+  }
+  
+  thead {
+    background-color: whitesmoke;
+  }
 
-table, th, td {
-    border: 1px solid black;
-}
+  table, th, td {
+      border: 1px solid black;
+  }
 
-th, td {
-  padding: 5px;
-}
+  th, td {
+    padding: 5px;
+  }
 
-tr:nth-child(even) {background-color: #f2f2f2}
+  .outcome-success, code.outcome-success {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+  
+  .outcome-failed, code.outcome-failed {
+    background-color: rgba(255, 100, 0, 0.3);
+  }
+  
+  .outcome-timed-out, code.outcome-timed {
+    background-color: rgba(100, 100, 255, 0.3);
+  }
+  
+  .outcome-crashed, code.outcome-crashed {
+    background-color: rgba(255, 0, 0, 0.4);
+  }
+  
+  tr a {
+    color: black;
+  }
+
+  code {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.1);
+    color: black;
+    padding: 4px;
+    border-radius: 6px;
+  }
+  
 </style>
 
 </head>
 <body>
   <h1>MRuby Spec</h1>
+  <ul>
+    <li><b>File</b><br/>The test file that was run as: <code>mspec/bin/mspec --format html -t mruby #{f}</code></li>
+    <li><b>Examples</b><br/>The number of examples in the file</li>
+    <li><b>Expectations</b><br/>The number of expectations in the file</li>
+    <li><b>Failures</b><br/>The number of failures that occurred</li>
+    <li><b>Errors</b><br/>The number of errors that occurred</li>
+    <li><b>Outcome</b><br/>The outcome of the test process
+      <ul>
+        <li><code class="outcome-success">Success</code> All tests passed</li>
+        <li><code class="outcome-failed">Failed</code> Some tests failed, but the process ended normally</li>
+        <li><code class="outcome-crashed">Crashed</code> The process crashed (probably a segfault)</li>
+        <li><code class="outcome-timed-out">Timed out</code> The process took to long, so the test runner killed it</li>
+      </ul>
+    </li>
+  </ul>
   <table>
     <thead>
   <% cols.each do |c| -%>
@@ -28,7 +87,7 @@ tr:nth-child(even) {background-color: #f2f2f2}
   </thead>
   <tbody>
   <% test_files.keys.each do |filename| -%>
-    <tr>
+    <tr class="outcome-<%= test_files[filename][:outcome].downcase.gsub(' ', '-') %>">
       <td><a href="https://jbreeden.github.io/mruby-spec/<%= filename.sub('gh-pages/', '') %>"><%= filename.sub('gh-pages/results/', '') %></a></td>
       <td><%= test_files[filename][:examples] %></td>
       <td><%= test_files[filename][:expectations] %></td>
