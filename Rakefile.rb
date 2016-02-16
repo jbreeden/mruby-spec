@@ -6,15 +6,26 @@ def run_test_file(f)
   results = f.sub('rubyspec', 'gh-pages/results').sub('.rb', '.html')
   results_dir = File.dirname(results)
   mkdir_p(results_dir) unless Dir.exist?(results_dir)
+  File.open("#{results}.meta", 'w') { } # empty the file
   
   pid = nil
-  Timeout.timeout(20) do
+  Timeout.timeout(30) do
     pid = spawn "mspec/bin/mspec --format html -t mruby #{f} > #{results} 2> #{results}.stderr.txt"
     Process.wait(pid)
+    File.open("#{results}.meta", 'w') { |f| 
+      if $?.exitstatus == 0
+        f.puts "Success"
+      elsif $?.exitstatus == 1
+        f.puts "Failed"
+      else
+        f.puts "Crashed"
+      end
+    }
   end
 rescue TimeoutError
   $stderr.puts "!!! Killing #{pid} !!! Test timed out: #{f}"
   Process.kill(:SIGINT, pid)
+  File.open("#{results}.meta", 'w') { |f| f.puts "Timed out" }
 end
 
 desc "Clone or update ./rubyspec and ./mspec"
@@ -110,27 +121,28 @@ task :language do
 end
 
 task :clean do
-  sh "rm -r ./results"
+  rm_rf './gh-pages/results' if Dir.exist?('gh-pages/results')
 end
 
 desc "Write the index file"
 task :index do
   require 'erb'
   
-  cols = %w[File Examples Expectations Failures Errors]
+  cols = %w[File Examples Expectations Failures Errors Outcome]
   test_files = {}
   
   Dir['gh-pages/results/**/*.html'].each do |filename|
     f = File.open(filename, 'r')
     test_files[filename] = {}
     f.each_line do |line|
-      if match = line.match(/(?<file>\d+) file, (?<examples>\d+) examples, (?<expectations>\d+) expectations, (?<failure>\d+) failure, (?<errors>\d+) errors, (?<tagged>\d+) tagged/)
+      if match = line.match(/(?<file>\d+)\s*file(s?),\s*(?<examples>\d+)\s*example(s?),\s*(?<expectations>\d+)\s*expectation(s?),\s*(?<failure>\d+)\s*failure(s?),\s*(?<errors>\d+)\s*error(s?),\s*(?<tagged>\d+)\s*tagged(s?)/)
         test_files[filename][:examples] = match[:examples]
         test_files[filename][:expectations] = match[:expectations]
         test_files[filename][:failure] = match[:failure]
         test_files[filename][:errors] = match[:errors]
       end
     end
+    test_files[filename][:outcome] = File.read("#{filename}.meta").strip
   end
   
   erb = ERB.new(File.read('index.html.erb'), nil, '-')
