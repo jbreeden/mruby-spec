@@ -1,0 +1,41 @@
+<html>
+<head>
+
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+  padding: 5px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2}
+</style>
+
+</head>
+<body>
+  <table>
+    <thead>
+  <% cols.each do |c| -%>
+      <th><%= c %></th>
+  <% end -%>
+  </thead>
+  <tbody>
+  <% test_files.keys.each do |filename| -%>
+    <tr>
+      <td><a href="https://jbreeden.github.io/mruby-spec/<%= filename.sub('gh-pages/', '') %>"><%= filename.sub('gh-pages/results/', '') %></a></td>
+      <td><%= test_files[filename][:examples] %></td>
+      <td><%= test_files[filename][:expectations] %></td>
+      <td><%= test_files[filename][:failure] %></td>
+      <td><%= test_files[filename][:errors] %></td>
+    </tr>
+  <% end -%>
+  </tbody>
+  </table>
+</body>
+</html>

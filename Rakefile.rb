@@ -115,36 +115,26 @@ end
 
 desc "Write the index file"
 task :index do
-  File.open('gh-pages/index.html', 'w') do |index|
-    cols = %w[File Examples Expectations Failures Errors]
-    
-    index.puts "<table>"
-    index.puts "<thead>"
-    cols.each do |c|
-      index.print "<th>"
-      index.print c
-      index.puts "</th>"
-    end
-    index.puts "</thead>"
-    index.puts "<tbody>"
-    
-    Dir['gh-pages/results/**/*.html'].each do |filename|
-      f = File.open(filename, 'r')
-      f.each_line do |line|
-        if match = line.match(/(?<file>\d+) file, (?<examples>\d+) examples, (?<expectations>\d+) expectations, (?<failure>\d+) failure, (?<errors>\d+) errors, (?<tagged>\d+) tagged/)
-          index.print "<tr><td><a href='https://jbreeden.github.io/results/#{filename}'>#{filename.sub('results', '')}</a></td>"
-          index.print "<td>#{match[:examples]}</td>"
-          index.print "<td>#{match[:expectations]}</td>"
-          index.print "<td>#{match[:failure]}</td>"
-          index.print "<td>#{match[:errors]}</td>"
-          index.puts "</tr>"
-        end
+  require 'erb'
+  
+  cols = %w[File Examples Expectations Failures Errors]
+  test_files = {}
+  
+  Dir['gh-pages/results/**/*.html'].each do |filename|
+    f = File.open(filename, 'r')
+    test_files[filename] = {}
+    f.each_line do |line|
+      if match = line.match(/(?<file>\d+) file, (?<examples>\d+) examples, (?<expectations>\d+) expectations, (?<failure>\d+) failure, (?<errors>\d+) errors, (?<tagged>\d+) tagged/)
+        test_files[filename][:examples] = match[:examples]
+        test_files[filename][:expectations] = match[:expectations]
+        test_files[filename][:failure] = match[:failure]
+        test_files[filename][:errors] = match[:errors]
       end
     end
-    
-    index.puts "</tbody>"
-    index.puts "</table>"
   end
+  
+  erb = ERB.new(File.read('index.html.erb'), nil, '-')
+  File.open('gh-pages/index.html', 'w') { |f| f.write(erb.result(binding)) }
 end
 
 task :default => [:clean, :language, :core, :index]
