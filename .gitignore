@@ -1,1 +1,4 @@
 results/**/*.stderr.txt
+gh-pages
+mspec
+rubyspec

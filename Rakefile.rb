@@ -115,22 +115,35 @@ end
 
 desc "Write the index file"
 task :index do
-  File.open('gh-pages/index.md', 'w') do |readme|
-    header = "|File|Examples|Expectations|Failures|Errors|"
+  File.open('gh-pages/index.html', 'w') do |index|
+    cols = %w[File Examples Expectations Failures Errors]
     
-    cols = header.split("|").select { |c| c && !c.empty? }.length
+    index.puts "<table>"
+    index.puts "<thead>"
+    cols.each do |c|
+      index.print "<th>"
+      index.print c
+      index.puts "</th>"
+    end
+    index.puts "</thead>"
+    index.puts "<tbody>"
     
-    readme.puts header
-    readme.puts header.gsub(/[^|]/, '-')
-    
-    Dir['results/**/*.html'].each do |filename|
+    Dir['gh-pages/results/**/*.html'].each do |filename|
       f = File.open(filename, 'r')
       f.each_line do |line|
         if match = line.match(/(?<file>\d+) file, (?<examples>\d+) examples, (?<expectations>\d+) expectations, (?<failure>\d+) failure, (?<errors>\d+) errors, (?<tagged>\d+) tagged/)
-          readme.puts "[#{filename.sub('results', '')}](https://jbreeden.github.io/results/#{filename})|#{match[:examples]}|#{match[:expectations]}|#{match[:failure]}|#{match[:errors]}|"
+          index.print "<tr><td><a href='https://jbreeden.github.io/results/#{filename}'>#{filename.sub('results', '')}</a></td>"
+          index.print "<td>#{match[:examples]}</td>"
+          index.print "<td>#{match[:expectations]}</td>"
+          index.print "<td>#{match[:failure]}</td>"
+          index.print "<td>#{match[:errors]}</td>"
+          index.puts "</tr>"
         end
       end
     end
+    
+    index.puts "</tbody>"
+    index.puts "</table>"
   end
 end
 
