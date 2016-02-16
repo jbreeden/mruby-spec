@@ -12,14 +12,15 @@ Usage
 3. `rake` to run the selected tests. Test results are collected as a gh-pages branch
    (they'll show up under `./gh-pages`).
    
-The default `rake` task runs all `core` and `language` tests. To select different
-tests to run, you can use
+The default `rake` task runs all `core` and `language` tests, formatting the output
+as html and generating the gh-pages branch content. To select different tests to 
+run, you can use this command from the root of this repo (after `rake init`):
 
 ```
 mspec/bin/mspec -t mruby rubyspec/path/to/tests
 ```
 
-To run the same tests under valgrind, use
+To run the same tests under valgrind, use:
 
 ```
 mspec/bin/mspec --valgrind -t mruby rubyspec/path/to/tests

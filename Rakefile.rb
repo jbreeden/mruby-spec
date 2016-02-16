@@ -10,7 +10,9 @@ def run_test_file(f)
   
   pid = nil
   Timeout.timeout(60) do
-    pid = spawn "mspec/bin/mspec --format html -t mruby #{f} > #{results} 2> #{results}.stderr.txt"
+    cmd = "mspec/bin/mspec #{'--valgrind' if ENV['valgrind'] =~ /true/i} --format html -t mruby #{f} > #{results} 2> #{results}.stderr.txt"
+    puts cmd
+    pid = spawn cmd
     Process.wait(pid)
     File.open("#{results}.meta", 'w') { |f| 
       if $?.exitstatus == 0
@@ -61,7 +63,7 @@ task :core do
     class
     comparable
     .complex
-    dir
+    .dir
     .encoding
     enumerable
     enumerator
@@ -139,10 +141,13 @@ task :index do
       if match = line.match(/(?<file>\d+)\s*file(s?),\s*(?<examples>\d+)\s*example(s?),\s*(?<expectations>\d+)\s*expectation(s?),\s*(?<failures>\d+)\s*failure(s?),\s*(?<errors>\d+)\s*error(s?),\s*(?<tagged>\d+)\s*tagged(s?)/)
         test_files[filename][:examples] = match[:examples]
         totals[:examples] += match[:examples].to_i
+        
         test_files[filename][:expectations] = match[:expectations]
         totals[:expectations] += match[:expectations].to_i
+        
         test_files[filename][:failures] = match[:failures]
         totals[:failures] += match[:failures].to_i
+        
         test_files[filename][:errors] = match[:errors]
         totals[:errors] += match[:errors].to_i
       end
@@ -152,6 +157,24 @@ task :index do
   
   erb = ERB.new(File.read('index.html.erb'), nil, '-')
   File.open('gh-pages/index.html', 'w') { |f| f.write(erb.result(binding)) }
+end
+
+desc "Run tests in file/directory given as tests arg: `rake run tests=path/to/tests`"
+task :run do
+  unless ENV['tests']
+    $stderr.puts "Must specify tests argument"
+    exit 1
+  end
+  
+  pick = ENV['tests']
+  if FileTest.file?(pick)
+    run_test_file(pick)
+  else
+    puts pick
+    Dir["#{pick}/*.rb"].each do |f|
+      run_test_file(f)
+    end
+  end
 end
 
 desc "Run the tests"
