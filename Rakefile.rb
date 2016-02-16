@@ -9,7 +9,7 @@ def run_test_file(f)
   File.open("#{results}.meta", 'w') { } # empty the file
   
   pid = nil
-  Timeout.timeout(60) do
+  Timeout.timeout(20) do
     cmd = "mspec/bin/mspec #{'--valgrind' if ENV['valgrind'] =~ /true/i} --format html -t mruby #{f} > #{results} 2> #{results}.stderr.txt"
     puts cmd
     pid = spawn cmd
@@ -48,6 +48,41 @@ task :init do
     cd 'gh-pages' do
       sh "git clone .. ."
       sh "git checkout gh-pages"
+    end
+  end
+end
+
+task :apr do
+  %w[
+    builtin_constants
+    dir
+    env
+    file
+    filetest
+    io
+    kernel
+    process
+  ].each do |dir|    
+    next if dir.start_with?('.')
+    
+    Dir["rubyspec/core/#{dir}/*.rb"].each do |f|
+      run_test_file(f)
+    end
+  end
+  
+  %w[
+    observer
+    openstruct
+    pathname
+    pp
+    shellwords
+    socket
+    tmpdir
+  ].each do |dir|    
+    next if dir.start_with?('.')
+    
+    Dir["rubyspec/library/#{dir}/*.rb"].each do |f|
+      run_test_file(f)
     end
   end
 end
