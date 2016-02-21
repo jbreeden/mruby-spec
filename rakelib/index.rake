@@ -29,7 +29,7 @@ def compile_index
         totals[:errors] += match[:errors].to_i
       end
     end
-    test_files[filename][:outcome] = File.read("#{filename}.meta").strip
+    test_files[filename][:outcome] = File.read("#{filename.sub('.html', '.meta')}").strip
   end
   
   erb = ERB.new(File.read('index.html.erb'), nil, '-')
