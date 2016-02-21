@@ -95,7 +95,7 @@
     <tbody>
   <% test_files.keys.each do |filename| -%>
       <tr class="outcome-<%= test_files[filename][:outcome].downcase.gsub(' ', '-') %>">
-        <td><a href="./<%= filename.sub('gh-pages/', '') %>"><%= filename.sub('gh-pages/results/', '') %></a></td>
+        <td><a href="./<%= filename.sub("#{Conf.output_dir}/", '') %>"><%= filename.sub("#{Conf.output_dir}/results/", '') %></a></td>
         <td><%= test_files[filename][:examples] %></td>
         <td><%= test_files[filename][:expectations] %></td>
         <td><%= test_files[filename][:failures] %></td>
