@@ -29,7 +29,17 @@ def compile_index
         totals[:errors] += match[:errors].to_i
       end
     end
+    
     test_files[filename][:outcome] = File.read("#{filename.sub('.html', '.meta')}").strip
+    
+    if test_files[filename][:outcome].downcase == 'failed'
+      # Lets be a little more granular
+      if test_files[filename][:examples].to_i <= (test_files[filename][:failures].to_i + test_files[filename][:errors].to_i)
+        test_files[filename][:outcome] = "Complete Failure"
+      else
+        test_files[filename][:outcome] = "Partial Failure"
+      end
+    end
   end
   
   erb = ERB.new(File.read('index.html.erb'), nil, '-')

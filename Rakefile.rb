@@ -10,6 +10,14 @@ module Conf
   def self.output_given?
     !(ENV['output'].nil?)
   end
+  
+  def self.valgrind?
+    self.valgrind_given? && ENV['valgrind'].downcase == 'true'
+  end
+  
+  def self.valgrind_given?
+    !(ENV['valgrind'].nil?)
+  end
 end
 
 desc "Same as 'rake clean language core index output=./gh-pages'"

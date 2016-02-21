@@ -34,12 +34,16 @@
     background-color: rgba(0, 255, 0, 0.2);
   }
   
-  .outcome-failed, code.outcome-failed {
+  .outcome-partial-failure, code.outcome-partial-failure {
+    background-color: rgba(250, 250, 0, 0.2);
+  }
+  
+  .outcome-complete-failure, code.outcome-complete-failure {
     background-color: rgba(255, 100, 0, 0.3);
   }
   
-  .outcome-timed-out, code.outcome-timed {
-    background-color: rgba(100, 100, 255, 0.3);
+  .outcome-timed-out, code.outcome-timed-out {
+    background-color: rgba(0, 150, 200, 0.5);
   }
   
   .outcome-crashed, code.outcome-crashed {
@@ -75,7 +79,8 @@
     <li><b>Outcome</b><br/>The outcome of the test process
       <ul>
         <li><code class="outcome-success">Success</code> All tests passed</li>
-        <li><code class="outcome-failed">Failed</code> Some tests failed, but the process ended normally</li>
+        <li><code class="outcome-partial-failure">Partial Failure</code> Some tests failed, but the process ended normally</li>
+        <li><code class="outcome-complete-failure">Complete Failure</code> All tests failed, but the process ended normally</li>
         <li><code class="outcome-crashed">Crashed</code> The process crashed (probably a segfault)</li>
         <li><code class="outcome-timed-out">Timed out</code> The process took too long, so the test runner killed it</li>
       </ul>

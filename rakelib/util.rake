@@ -11,7 +11,7 @@ def run_test_file(f)
   
   pid = nil
   Timeout.timeout(20) do
-    cmd = "mspec/bin/mspec #{'--valgrind' if ENV['valgrind'] =~ /true/i} --format html -t mruby #{f} > #{results} 2> #{results_base}.stderr.txt"
+    cmd = "mspec/bin/mspec #{'--valgrind' if Conf.valgrind?} --format html -t mruby #{f} > #{results} 2> #{results_base}.stderr.txt"
     puts cmd
     pid = spawn cmd
     Process.wait(pid)
