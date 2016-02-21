@@ -1,4 +1,4 @@
-# Re-generate the index.html file for the results
+desc 'Generate the index.html file for the results [output=./gh-pages]'
 task :index do
   compile_index
 end

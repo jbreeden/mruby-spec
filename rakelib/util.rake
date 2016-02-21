@@ -1,3 +1,5 @@
+require 'timeout'
+
 def run_test_file(f)
   raise "File path should start with rubyspec/..." unless f.start_with?('rubyspec/')
   

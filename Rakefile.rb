@@ -1,17 +1,27 @@
-require 'timeout'
-
 module Conf
   class << self
     attr_accessor :output_dir
   end
   
   def self.output_dir
-    @output_dir || ENV['o'] || ENV['output'] || 'gh-pages'
+    @output_dir || ENV['output'] || 'gh-pages'
+  end
+  
+  def self.output_given?
+    !(ENV['output'].nil?)
   end
 end
 
-desc "Clone or update ./rubyspec and ./mspec"
-task :init do
+desc "Same as 'rake clean language core index output=./gh-pages'"
+task :default => [:clean, :language, :core, :index]
+
+desc 'Clean the output directory'
+task :clean do
+  clean
+end
+
+desc "Run this once to initialize your clone of the project"
+task :"init" do
   unless Dir.exists?('rubyspec')
     sh "git clone https://github.com/ruby/spec rubyspec"
   end
@@ -31,10 +41,3 @@ task :init do
     end
   end
 end
-
-task :clean do
-  clean
-end
-
-desc "Run the tests"
-task :default => [:clean, :language, :core, :index]

@@ -1,4 +1,4 @@
-desc "Run tests in file/directory given as tests arg: `rake run tests=path/to/tests`"
+# desc "Run tests in file/directory given as tests arg: `rake run tests=path/to/tests`"
 task :run do
   unless ENV['tests']
     $stderr.puts "Must specify tests argument"

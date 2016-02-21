@@ -1,3 +1,4 @@
+desc 'Run tests for core features [output=./gh-pages]'
 task :core do
   %w[
     .argf

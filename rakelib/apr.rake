@@ -1,5 +1,8 @@
+desc 'Run tests for mruby-apr features [output=./output/apr]'
 task :apr do
-  Conf.output_dir = 'output/apr'
+  unless Conf.output_given?
+    Conf.output_dir = 'output/apr'
+  end
   
   %w[
     builtin_constants
