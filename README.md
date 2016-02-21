@@ -12,20 +12,29 @@ Usage
 1. Clone this repo `git clone https://github.com/jbreeden/mruby-spec`
 2. `rake init` to checkout `ruby/spec` and a `ruby/mspec` clone customized for MRuby.
 3. `rake` to run the selected tests. Test results are collected as a gh-pages branch
-   (they'll show up under `./gh-pages`).
+   by default (they'll show up under `./gh-pages`).
    
-The default `rake` task runs all `core` and `language` tests, formatting the output
-as html and generating the gh-pages branch content. To select different tests to 
-run, you can use this command from the root of this repo (after `rake init`):
+The available rake tasks are:
 
 ```
-mspec/bin/mspec -t mruby rubyspec/path/to/tests
+[jared:~/projects/mruby-spec] rake -T
+rake apr       # Run tests for mruby-apr features [output=./output/apr]
+rake clean     # Clean the output directory
+rake core      # Run tests for core features [output=./gh-pages]
+rake default   # Same as 'rake clean language core index output=./gh-pages'
+rake index     # Generate the index.html file for the results [output=./gh-pages]
+rake init      # Run this once to initialize your clone of the project
+rake language  # Run tests for language features [output=./gh-pages]
+rake regexp    # Run tests for Regexp features [output=./output/regexp]
 ```
 
-To run the same tests under valgrind, use:
+The default `output` parameter for each task is shown above, and all may be overridden.
+
+To invoke tests with valgrind enabled, pass `valgrind=true` to the rake task.
 
 ```
-mspec/bin/mspec --valgrind -t mruby rubyspec/path/to/tests
+# Run regexp tests under valgrind, and generate the index file.
+rake output=my_output_dir valgrind=true regexp index
 ```
 
 Requirements
