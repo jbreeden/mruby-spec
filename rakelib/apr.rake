@@ -10,10 +10,11 @@ task :apr do
     env
     file
     filetest
-    io
-    kernel
+    .io
+    .kernel
     process
-  ].each do |dir|    
+  ].each do |dir|
+    next if dir.start_with?('.')
     Dir["rubyspec/core/#{dir}/*.rb"].each do |f|
       run_test_file(f)
     end
@@ -27,7 +28,8 @@ task :apr do
     shellwords
     socket
     tmpdir
-  ].each do |dir|    
+  ].each do |dir|
+    next if dir.start_with?('.')
     Dir["rubyspec/library/#{dir}/*.rb"].each do |f|
       run_test_file(f)
     end

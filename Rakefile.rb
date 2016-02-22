@@ -31,7 +31,10 @@ end
 desc "Run this once to initialize your clone of the project"
 task :"init" do
   unless Dir.exists?('rubyspec')
-    sh "git clone https://github.com/ruby/spec rubyspec"
+    sh "git clone https://github.com/jbreeden/spec rubyspec"
+    cd "rubyspec" do
+      sh "git checkout mruby"
+    end
   end
   
   unless Dir.exists?('mspec')
