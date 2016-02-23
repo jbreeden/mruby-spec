@@ -47,7 +47,7 @@ task :"init" do
   unless Dir.exists?('gh-pages')
     mkdir 'gh-pages'
     cd 'gh-pages' do
-      sh "git clone .. ."
+      sh "git clone https://github.com/jbreeden/mruby-spec ."
       sh "git checkout gh-pages"
     end
   end
