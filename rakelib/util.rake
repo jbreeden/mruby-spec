@@ -1,6 +1,6 @@
 require 'timeout'
 
-def run_test_file(f)
+def run_test_file(f, format='html')
   raise "File path should start with rubyspec/..." unless f.start_with?('rubyspec/')
   
   results_base = f.sub('rubyspec', "#{Conf.output_dir}/results").sub('.rb', '')
@@ -11,7 +11,7 @@ def run_test_file(f)
   
   pid = nil
   Timeout.timeout(30) do
-    cmd = "mspec/bin/mspec #{'--valgrind' if Conf.valgrind?} --format html -t mruby #{f} > #{results} 2> #{results_base}.stderr.txt"
+    cmd = "mspec/bin/mspec #{'--valgrind' if Conf.valgrind?} --format #{format} -t mruby #{f} > #{results} 2> #{results_base}.stderr.txt"
     puts cmd
     pid = spawn cmd
     Process.wait(pid)

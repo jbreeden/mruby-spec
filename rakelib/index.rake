@@ -42,6 +42,8 @@ def compile_index
     end
   end
   
+  title = ENV['title'] ? "MRuby Spec: #{ENV['title']}" : "MRuby Spec"
+  
   erb = ERB.new(File.read('index.html.erb'), nil, '-')
   File.open("#{Conf.output_dir}/index.html", 'w') { |f| f.write(erb.result(binding)) }
 end
