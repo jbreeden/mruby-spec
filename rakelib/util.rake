@@ -10,7 +10,7 @@ def run_test_file(f)
   File.open("#{results_base}.meta", 'w') { } # empty the file
   
   pid = nil
-  Timeout.timeout(120) do
+  Timeout.timeout(30) do
     cmd = "mspec/bin/mspec #{'--valgrind' if Conf.valgrind?} --format html -t mruby #{f} > #{results} 2> #{results_base}.stderr.txt"
     puts cmd
     pid = spawn cmd

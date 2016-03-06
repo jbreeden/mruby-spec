@@ -4,7 +4,7 @@ module Conf
   end
   
   def self.output_dir
-    @output_dir || ENV['output'] || 'gh-pages'
+    @output_dir || ENV['output'] || 'output/mruby'
   end
   
   def self.output_given?
@@ -20,7 +20,7 @@ module Conf
   end
 end
 
-desc "Same as 'rake clean language core index output=./gh-pages'"
+desc "Same as 'rake clean language core index output=./output/mruby'"
 task :default => [:clean, :language, :core, :index]
 
 desc 'Clean the output directory'
@@ -42,13 +42,5 @@ task :"init" do
     cd "mspec" do
       sh "git checkout mruby"
     end
-  end
-  
-  unless Dir.exists?('gh-pages')
-    mkdir 'gh-pages'
-    cd 'gh-pages' do
-      sh "git clone .. ."
-      sh "git checkout gh-pages"
-    end
-  end
+  end  
 end

@@ -1,4 +1,4 @@
-desc 'Generate the index.html file for the results [output=./gh-pages]'
+desc 'Generate the index.html file for the results [output=./output/mruby]'
 task :index do
   compile_index
 end

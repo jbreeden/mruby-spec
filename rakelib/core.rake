@@ -1,5 +1,9 @@
-desc 'Run tests for core features [output=./gh-pages]'
+desc 'Run tests for core features [output=./output/mruby]'
 task :core do
+  unless Conf.output_given?
+    Conf.output_dir = 'output/mruby'
+  end
+  
   %w[
     .argf
     array
