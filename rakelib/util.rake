@@ -9,9 +9,11 @@ def run_test_file(f, format='html')
   mkdir_p(results_dir) unless Dir.exist?(results_dir)
   File.open("#{results_base}.meta", 'w') { } # empty the file
   
+  target = ENV['target'] || 'mruby'
+  
   pid = nil
   Timeout.timeout(30) do
-    cmd = "mspec/bin/mspec #{'--valgrind' if Conf.valgrind?} --format #{format} -t mruby #{f} > #{results} 2> #{results_base}.stderr.txt"
+    cmd = "mspec/bin/mspec #{'--valgrind' if Conf.valgrind?} --format #{format} -t #{target} #{f} > #{results} 2> #{results_base}.stderr.txt"
     puts cmd
     pid = spawn cmd
     Process.wait(pid)
