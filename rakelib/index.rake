@@ -10,7 +10,7 @@ def compile_index
   test_files = {}
   totals = Hash.new { |h, k| h[k] = 0 }
   
-  Dir["#{Conf.output_dir}/results/**/*.html"].each do |filename|
+  Dir["#{Conf.output_dir}/results/**/*.html"].sort.each do |filename|
     f = File.open(filename, 'r')
     test_files[filename] = {}
     

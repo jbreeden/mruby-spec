@@ -42,5 +42,6 @@ task :"init" do
     cd "mspec" do
       sh "git checkout mruby"
     end
+
   end  
 end
